@@ -29,6 +29,7 @@ export default class TimePunchCardScreen extends React.Component {
 
     this.state = {
       username: '',
+      password: '',
       confirmedUsername: ''
     };
   };
@@ -41,10 +42,20 @@ export default class TimePunchCardScreen extends React.Component {
             style={styles.input}
             value={this.state.username}
             onChangeText={(text) => this.setState({username: text})}
-            placeholder={'Enter User Nickname'}
+            placeholder={'Enter User Name'}
             maxLength={12}
             multiline={false}
             />
+
+          <TextInput
+              style={styles.input}
+              value={this.state.password}
+              onChangeText={(text) => this.setState({password: text})}
+              placeholder={'Enter Password'}
+              maxLength={12}
+              multiline={false}
+              secureTextEntry={true}
+              />
 
           <TouchableHighlight
             style={styles.button}
@@ -70,7 +81,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
-    backgroundColor: '#6E5BAA'
+    backgroundColor: '#E9E7E2'
   },
   loginContainer: {
     flex: 1,
@@ -86,7 +97,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     alignSelf: 'center',
-    backgroundColor: '#ffffff'
+    backgroundColor: '#ffffff',
+    padding: 10,
+    marginTop: 10
   },
   button: {
     justifyContent: 'center',
