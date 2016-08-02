@@ -13,8 +13,8 @@ export default () => {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../assets/images/exponent-wordmark.png')}
-        style={{ width: 655 / 6.0, height: 113 / 6.0 }}
+        source={require('../assets/images/logo_transparent.png')}
+        style={{ width: 655 / 3.0, height: 113 / 3.0 }}
         resizeMode="contain"
       />
     </View>

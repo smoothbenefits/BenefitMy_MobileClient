@@ -9,5 +9,6 @@ import {
 export default createRouter(() => ({
   home: () => require('ConfigScreen').default,
   links: () => require('LinksScreen').default,
+  timePunchCard: () => require('TimePunchCardScreen').default,
   tabNavigationLayout: () => require('TabNavigationLayout').default,
 }));

@@ -31,7 +31,13 @@ export default class TabNavigationLayout extends React.Component {
       <TabNavigation
         tabBarColor={Colors.tabBar}
         tabBarHeight={56}
-        initialTab="home">
+        initialTab="timePunchCard">
+        <TabNavigationItem
+          id="timePunchCard"
+          renderIcon={isSelected => this._renderIcon('clock-o', isSelected)}>
+          <StackNavigation initialRoute={Router.getRoute('timePunchCard')} />
+        </TabNavigationItem>
+
         <TabNavigationItem
           id="home"
           renderIcon={isSelected => this._renderIcon('cog', isSelected)}>
@@ -41,18 +47,6 @@ export default class TabNavigationLayout extends React.Component {
         <TabNavigationItem
           id="links"
           renderIcon={isSelected => this._renderIcon('book', isSelected)}>
-          <StackNavigation initialRoute={Router.getRoute('links')} />
-        </TabNavigationItem>
-
-        <TabNavigationItem
-          id="other-a"
-          renderIcon={isSelected => this._renderIcon('ban', isSelected)}>
-          <StackNavigation initialRoute={Router.getRoute('links')} />
-        </TabNavigationItem>
-
-        <TabNavigationItem
-          id="other-b"
-          renderIcon={isSelected => this._renderIcon('ban', isSelected)}>
           <StackNavigation initialRoute={Router.getRoute('links')} />
         </TabNavigationItem>
       </TabNavigation>
