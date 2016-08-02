@@ -35,3 +35,9 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+# Exponent generated files
+.exponent
+
+# Apple file metadata
+.DS_Store
