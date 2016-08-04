@@ -6,9 +6,14 @@ import {
   createRouter,
 } from '@exponent/ex-navigation';
 
+import ConfigScreen from 'ConfigScreen';
+import LinksScreen from 'LinksScreen';
+import TimePunchCardScreen from 'TimePunchCardScreen';
+import TabNavigationLayout from 'TabNavigationLayout';
+
 export default createRouter(() => ({
-  home: () => require('ConfigScreen').default,
-  links: () => require('LinksScreen').default,
-  timePunchCard: () => require('TimePunchCardScreen').default,
-  tabNavigationLayout: () => require('TabNavigationLayout').default,
+  home: () => ConfigScreen,
+  links: () => LinksScreen,
+  timePunchCard: () => TimePunchCardScreen,
+  tabNavigationLayout: () => TabNavigationLayout
 }));

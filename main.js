@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import {
   AppRegistry,
   Platform,
@@ -14,6 +14,10 @@ import Router from 'Router';
 import registerForPushNotificationsAsync from 'registerForPushNotificationsAsync';
 
 class AppContainer extends React.Component {
+  static propTypes = {
+    exp: PropTypes.object.isRequired,
+  };
+
   componentWillMount() {
     registerForPushNotificationsAsync();
   }

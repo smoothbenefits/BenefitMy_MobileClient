@@ -4,10 +4,6 @@
 
 import React, { PropTypes } from 'react';
 import {
-  StyleSheet,
-  View,
-} from 'react-native';
-import {
   StackNavigation,
   TabNavigation,
   TabNavigationItem,
@@ -63,13 +59,3 @@ export default class TabNavigationLayout extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  selectedTab: {
-    color: Colors.tabIconSelected,
-  },
-});
