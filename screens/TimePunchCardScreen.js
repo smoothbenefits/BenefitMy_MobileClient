@@ -12,10 +12,12 @@ import {
   Text,
   View,
   TextInput,
-  TouchableHighlight
+  TouchableHighligh
 } from 'react-native';
 
 import BrandedNavigationTitle from 'BrandedNavigationTitle';
+
+import TimePunchCardService from 'TimePunchCardService';
 
 export default class TimePunchCardScreen extends React.Component {
   static route = {
@@ -30,49 +32,108 @@ export default class TimePunchCardScreen extends React.Component {
     this.state = {
       username: '',
       password: '',
-      confirmedUsername: ''
+      loggedIn: false,
+      punchedIn: null,
+      lastPunchTime: null
     };
   };
 
   render() {
-    return (
+    let loginView = (
       <View style={styles.container}>
-        <View style={styles.loginContainer}>
-          <TextInput
-            style={styles.input}
-            value={this.state.username}
-            onChangeText={(text) => this.setState({username: text})}
-            placeholder={'Enter User Name'}
-            maxLength={12}
-            multiline={false}
-            />
-
-          <TextInput
+        <View style={styles.centerContainer}>
+          <View style={styles.centerAlignContainer}>
+            <TextInput
               style={styles.input}
-              value={this.state.password}
-              onChangeText={(text) => this.setState({password: text})}
-              placeholder={'Enter Password'}
+              value={this.state.username}
+              onChangeText={(text) => this.setState({username: text})}
+              placeholder={'Enter User Name'}
               maxLength={12}
               multiline={false}
-              secureTextEntry={true}
               />
 
-          <TouchableHighlight
-            style={styles.button}
-            underlayColor={'#328FE6'}
-            onPress={this._handlePressLogin}
-            >
-            <Text style={styles.label}>LOGIN</Text>
-          </TouchableHighlight>
+            <TextInput
+                style={styles.input}
+                value={this.state.password}
+                onChangeText={(text) => this.setState({password: text})}
+                placeholder={'Enter Password'}
+                maxLength={12}
+                multiline={false}
+                secureTextEntry={true}
+                />
 
-          <Text>Logged in as: {this.state.confirmedUsername}</Text>
+            <TouchableOpacity
+              style={styles.buttonLogin}
+              underlayColor={'#328FE6'}
+              onPress={this._handlePressLogin}
+              >
+              <Text style={styles.label}>LOGIN</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    );
+    )
+
+    let loggedInView = (
+      <View style={styles.container}>
+        <View style={styles.centerContainer}>
+          <View style={styles.centerAlignContainer}>
+            <TouchableOpacity
+              style={styles.buttonPunch}
+              underlayColor={'#328FE6'}
+              onPress={this._handlePunch}
+              >
+              <Text style={styles.label}>{this.state.punchedIn ? 'Punch Out' : 'Punch In'}</Text>
+            </TouchableOpacity>
+            <Text style={styles.message}>{this.state.punchedIn != null ? (this.state.punchedIn ? 'Last Punched-in' : 'Last Punched-out' ) : ''}</Text>
+            <Text style={styles.message}>{this.state.lastPunchTime}</Text>
+          </View>
+        </View>
+        <View style={styles.bottomContainer}>
+          <TouchableOpacity
+            style={styles.buttonLogin}
+            underlayColor={'#328FE6'}
+            onPress={this._handlePressLogout}
+            >
+            <Text style={styles.label}>LOG OUT</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    )
+
+    let viewToUse = this.state.loggedIn ? loggedInView : loginView
+
+    return (
+      viewToUse
+    )
   }
 
   _handlePressLogin = () => {
-    this.setState({ confirmedUsername: this.state.username })
+    this.setState({ loggedIn: true })
+  }
+
+  _handlePressLogout = () => {
+    this.setState({ loggedIn: false })
+  }
+
+  _handlePunch = () => {
+    this.state.punchedIn ? this._punchOut() : this._punchIn();
+  }
+
+  _punchIn = () => {
+    var service = new TimePunchCardService();
+    service.createPunchCardAsync().then((response) => {
+      this.setState({
+        punchedIn: true,
+        lastPunchTime: new Date().toLocaleString() });
+    });
+  }
+
+  _punchOut = () => {
+    this.setState({
+      punchedIn: false,
+      lastPunchTime: new Date().toLocaleString() });
+    alert('Punched Out!');
   }
 }
 
@@ -83,10 +144,22 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#E9E7E2'
   },
-  loginContainer: {
-    flex: 1,
+  centerContainer: {
+    flex: 11,
     justifyContent: 'center',
+    alignItems: 'stretch'
+  },
+  bottomContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     alignItems: 'center',
+    paddingBottom: 20
+  },
+  centerAlignContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center'
   },
   input: {
     width: 250,
@@ -101,7 +174,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 10
   },
-  button: {
+  buttonLogin: {
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
@@ -111,6 +184,16 @@ const styles = StyleSheet.create({
     marginTop: 10,
     backgroundColor: '#32c5e6'
   },
+  buttonPunch: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderRadius: 64,
+    borderColor: '#6E8E4B',
+    padding: 10,
+    marginTop: 10,
+    backgroundColor: '#6EBE4B'
+  },
   label: {
     width: 230,
     flex: 1,
@@ -119,5 +202,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     color: '#ffffff'
+  },
+  message: {
+    marginTop: 10,
+    width: 230,
+    alignSelf: 'center',
+    textAlign: 'center',
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#555555'
   }
 });
