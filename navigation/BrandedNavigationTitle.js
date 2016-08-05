@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 
-export default () => {
+export default function renderBrandedNavigationTitle() {
   return (
     <View style={styles.container}>
       <Image
@@ -19,7 +19,7 @@ export default () => {
       />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

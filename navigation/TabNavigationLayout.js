@@ -35,15 +35,9 @@ export default class TabNavigationLayout extends React.Component {
         </TabNavigationItem>
 
         <TabNavigationItem
-          id="home"
+          id="config"
           renderIcon={isSelected => this._renderIcon('cog', isSelected)}>
-          <StackNavigation initialRoute={Router.getRoute('home', {manifest})} />
-        </TabNavigationItem>
-
-        <TabNavigationItem
-          id="links"
-          renderIcon={isSelected => this._renderIcon('book', isSelected)}>
-          <StackNavigation initialRoute={Router.getRoute('links')} />
+          <StackNavigation initialRoute={Router.getRoute('config', {manifest})} />
         </TabNavigationItem>
       </TabNavigation>
     );

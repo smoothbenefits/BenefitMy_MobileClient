@@ -134,6 +134,9 @@ const Color = ({value}) => {
     );
   }
 };
+Color.propTypes = {
+  value: React.PropTypes.string,
+};
 
 const SectionHeader = ({title}) => {
   return (
@@ -144,6 +147,9 @@ const SectionHeader = ({title}) => {
     </View>
   );
 };
+SectionHeader.propTypes = {
+  title: React.PropTypes.string,
+};
 
 const SectionContent = (props) => {
   return (
@@ -151,6 +157,9 @@ const SectionContent = (props) => {
       {props.children}
     </View>
   );
+};
+SectionContent.propTypes = {
+  children: React.PropTypes.object,
 };
 
 const AppIconPreview = ({iconUrl}) => {
@@ -165,6 +174,9 @@ const AppIconPreview = ({iconUrl}) => {
       resizeMode="cover"
     />
   );
+};
+AppIconPreview.propTypes = {
+  iconUrl: React.PropTypes.string,
 };
 
 const styles = StyleSheet.create({

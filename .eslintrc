@@ -11,5 +11,8 @@
         "plugin:react/recommended"
     ],
     "rules": {
+    },
+    "globals": {
+        "require": true
     }
 }

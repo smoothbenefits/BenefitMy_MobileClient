@@ -4,15 +4,11 @@
 
 import React from 'react';
 import {
-  Linking,
   StyleSheet,
-  ScrollView,
   TouchableOpacity,
-  Image,
   Text,
   View,
   TextInput,
-  TouchableHighligh
 } from 'react-native';
 
 import BrandedNavigationTitle from 'BrandedNavigationTitle';
@@ -36,7 +32,7 @@ export default class TimePunchCardScreen extends React.Component {
       punchedIn: null,
       lastPunchTime: null
     };
-  };
+  }
 
   render() {
     let loginView = (
@@ -122,7 +118,7 @@ export default class TimePunchCardScreen extends React.Component {
 
   _punchIn = () => {
     var service = new TimePunchCardService();
-    service.createPunchCardAsync().then((response) => {
+    service.createPunchCardAsync().then(() => {
       this.setState({
         punchedIn: true,
         lastPunchTime: new Date().toLocaleString() });
@@ -171,7 +167,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     alignSelf: 'center',
     backgroundColor: '#ffffff',
-    padding: 10,
     marginTop: 10
   },
   buttonLogin: {

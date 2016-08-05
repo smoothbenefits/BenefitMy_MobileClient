@@ -7,13 +7,11 @@ import {
 } from '@exponent/ex-navigation';
 
 import ConfigScreen from 'ConfigScreen';
-import LinksScreen from 'LinksScreen';
 import TimePunchCardScreen from 'TimePunchCardScreen';
 import TabNavigationLayout from 'TabNavigationLayout';
 
 export default createRouter(() => ({
-  home: () => ConfigScreen,
-  links: () => LinksScreen,
+  config: () => ConfigScreen,
   timePunchCard: () => TimePunchCardScreen,
   tabNavigationLayout: () => TabNavigationLayout
 }));
