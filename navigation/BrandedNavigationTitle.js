@@ -13,9 +13,9 @@ export default function renderBrandedNavigationTitle() {
   return (
     <View style={styles.container}>
       <Image
+        resizeMode="contain"
         source={require('../assets/images/logo_transparent.png')}
         style={{ width: 655 / 3.0, height: 113 / 3.0 }}
-        resizeMode="contain"
       />
     </View>
   );

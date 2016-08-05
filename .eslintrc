@@ -11,6 +11,26 @@
         "plugin:react/recommended"
     ],
     "rules": {
+      "no-console": 0,
+      "no-unused-vars": [1, {"vars": "local", "args": "none"}],
+      "react/jsx-boolean-value": 1,
+      "react/jsx-closing-bracket-location": 1,
+      "react/jsx-curly-spacing": 1,
+      "react/jsx-key": 1,
+      "react/jsx-max-props-per-line": 1,
+      "react/jsx-sort-props": 1,
+      "react/no-danger": 1,
+      "react/no-did-mount-set-state": 1,
+      "react/no-did-update-set-state": 1,
+      "react/no-multi-comp": [1, { "ignoreStateless": true }],
+      "react/no-set-state": 1,
+      "react/prefer-es6-class": 1,
+      "react/react-in-jsx-scope": 1,
+      "react/require-extension": 1,
+      "react/self-closing-comp": 1,
+      "react/sort-comp": 1,
+      "react/wrap-multilines": 1,
+      "id-length": 0,
     },
     "globals": {
         "require": true

@@ -34,11 +34,17 @@ export default class ConfigScreen extends React.Component {
         </View>
 
         <View style={styles.titleTextContainer}>
-          <Text style={styles.nameText} numberOfLines={1}>
+          <Text
+            numberOfLines={1}
+            style={styles.nameText}
+          >
             {manifest.name}
           </Text>
 
-          <Text style={styles.slugText} numberOfLines={1}>
+          <Text
+            numberOfLines={1}
+            style={styles.slugText}
+          >
             {manifest.slug}
           </Text>
 
@@ -169,9 +175,9 @@ const AppIconPreview = ({iconUrl}) => {
 
   return (
     <Image
+      resizeMode="cover"
       source={{uri: iconUrl}}
       style={{width: 64, height: 64}}
-      resizeMode="cover"
     />
   );
 };
@@ -243,8 +249,8 @@ const styles = StyleSheet.create({
 
 const WbIcon = () => (
   <Image
-    source={require('../assets/images/logo_transparent.png')}
     fadeDuration={0}
+    source={require('../assets/images/logo_transparent.png')}
     style={{width: 150, height: 20}}
   />
 );

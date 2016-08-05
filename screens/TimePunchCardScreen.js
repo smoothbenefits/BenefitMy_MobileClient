@@ -34,82 +34,20 @@ export default class TimePunchCardScreen extends React.Component {
     };
   }
 
-  render() {
-    let loginView = (
-      <View style={styles.container}>
-        <View style={styles.centerContainer}>
-          <View style={styles.centerAlignContainer}>
-            <TextInput
-              style={styles.input}
-              value={this.state.username}
-              onChangeText={(text) => this.setState({username: text})}
-              placeholder={'Enter User Name'}
-              maxLength={12}
-              multiline={false}
-              />
+  _handleUserNameUpdate = (text) => {
+    this.setState({ username: text });
+  }
 
-            <TextInput
-                style={styles.input}
-                value={this.state.password}
-                onChangeText={(text) => this.setState({password: text})}
-                placeholder={'Enter Password'}
-                maxLength={12}
-                multiline={false}
-                secureTextEntry={true}
-                />
-
-            <TouchableOpacity
-              style={styles.buttonLogin}
-              underlayColor={'#328FE6'}
-              onPress={this._handlePressLogin}
-              >
-              <Text style={styles.label}>LOGIN</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    )
-
-    let loggedInView = (
-      <View style={styles.container}>
-        <View style={styles.centerContainer}>
-          <View style={styles.centerAlignContainer}>
-            <TouchableOpacity
-              style={styles.buttonPunch}
-              underlayColor={'#328FE6'}
-              onPress={this._handlePunch}
-              >
-              <Text style={styles.label}>{this.state.punchedIn ? 'Punch Out' : 'Punch In'}</Text>
-            </TouchableOpacity>
-            <Text style={styles.message}>{this.state.punchedIn != null ? (this.state.punchedIn ? 'Last Punched-in' : 'Last Punched-out' ) : ''}</Text>
-            <Text style={styles.message}>{this.state.lastPunchTime}</Text>
-          </View>
-        </View>
-        <View style={styles.bottomContainer}>
-          <TouchableOpacity
-            style={styles.buttonLogin}
-            underlayColor={'#328FE6'}
-            onPress={this._handlePressLogout}
-            >
-            <Text style={styles.label}>LOG OUT</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    )
-
-    let viewToUse = this.state.loggedIn ? loggedInView : loginView
-
-    return (
-      viewToUse
-    )
+  _handlePasswordUpdate = (text) => {
+    this.setState({ password: text });
   }
 
   _handlePressLogin = () => {
-    this.setState({ loggedIn: true })
+    this.setState({ loggedIn: true });
   }
 
   _handlePressLogout = () => {
-    this.setState({ loggedIn: false })
+    this.setState({ loggedIn: false });
   }
 
   _handlePunch = () => {
@@ -130,6 +68,76 @@ export default class TimePunchCardScreen extends React.Component {
       punchedIn: false,
       lastPunchTime: new Date().toLocaleString() });
     alert('Punched Out!');
+  }
+
+  render() {
+    let loginView = (
+      <View style={styles.container}>
+        <View style={styles.centerContainer}>
+          <View style={styles.centerAlignContainer}>
+            <TextInput
+              maxLength={12}
+              multiline={false}
+              onChangeText={this._handleUserNameUpdate}
+              placeholder={'Enter User Name'}
+              style={styles.input}
+              value={this.state.username}
+            />
+
+            <TextInput
+                maxLength={12}
+                multiline={false}
+                onChangeText={this._handlePasswordUpdate}
+                placeholder={'Enter Password'}
+                secureTextEntry
+                style={styles.input}
+                value={this.state.password}
+            />
+
+            <TouchableOpacity
+              onPress={this._handlePressLogin}
+              style={styles.buttonLogin}
+              underlayColor={'#328FE6'}
+            >
+              <Text style={styles.label}>LOGIN</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    )
+
+    let loggedInView = (
+      <View style={styles.container}>
+        <View style={styles.centerContainer}>
+          <View style={styles.centerAlignContainer}>
+            <TouchableOpacity
+              onPress={this._handlePunch}
+              style={styles.buttonPunch}
+              underlayColor={'#328FE6'}
+            >
+              <Text style={styles.label}>{this.state.punchedIn ? 'Punch Out' : 'Punch In'}</Text>
+            </TouchableOpacity>
+            <Text style={styles.message}>{this.state.punchedIn != null ? (this.state.punchedIn ? 'Last Punched-in' : 'Last Punched-out' ) : ''}</Text>
+            <Text style={styles.message}>{this.state.lastPunchTime}</Text>
+          </View>
+        </View>
+        <View style={styles.bottomContainer}>
+          <TouchableOpacity
+            onPress={this._handlePressLogout}
+            style={styles.buttonLogin}
+            underlayColor={'#328FE6'}
+          >
+            <Text style={styles.label}>LOG OUT</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    )
+
+    let viewToUse = this.state.loggedIn ? loggedInView : loginView
+
+    return (
+      viewToUse
+    )
   }
 }
 
