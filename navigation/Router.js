@@ -6,12 +6,14 @@ import {
   createRouter,
 } from '@exponent/ex-navigation';
 
-import ConfigScreen from 'ConfigScreen';
+import LoginScreen from 'LoginScreen';
 import TimePunchCardScreen from 'TimePunchCardScreen';
 import TabNavigationLayout from 'TabNavigationLayout';
 
-export default createRouter(() => ({
-  config: () => ConfigScreen,
+const routers = createRouter(() => ({
+  login: () => LoginScreen,
   timePunchCard: () => TimePunchCardScreen,
   tabNavigationLayout: () => TabNavigationLayout
 }));
+
+export default routers;

@@ -4,7 +4,7 @@
 
 const API_ENDPOINT = 'http://stage.timetracking.workbenefits.me/api/v1';
 
-export default class TimePunchCardService {
+class TimePunchCardService {
 
   createPunchCardAsync() {
     var newCard = this.getNewPunchCardForEmployeeUser(
@@ -59,3 +59,5 @@ export default class TimePunchCardService {
   }
 
 }
+
+export default TimePunchCardService;

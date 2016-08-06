@@ -7,15 +7,14 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
-  View,
-  TextInput,
+  View
 } from 'react-native';
 
 import BrandedNavigationTitle from 'BrandedNavigationTitle';
 
 import TimePunchCardService from 'TimePunchCardService';
 
-export default class TimePunchCardScreen extends React.Component {
+class TimePunchCardScreen extends React.Component {
   static route = {
     navigationBar: {
       renderTitle: () => <BrandedNavigationTitle />,
@@ -26,28 +25,9 @@ export default class TimePunchCardScreen extends React.Component {
     super(props, context);
 
     this.state = {
-      username: '',
-      password: '',
-      loggedIn: false,
       punchedIn: null,
       lastPunchTime: null
     };
-  }
-
-  _handleUserNameUpdate = (text) => {
-    this.setState({ username: text });
-  }
-
-  _handlePasswordUpdate = (text) => {
-    this.setState({ password: text });
-  }
-
-  _handlePressLogin = () => {
-    this.setState({ loggedIn: true });
-  }
-
-  _handlePressLogout = () => {
-    this.setState({ loggedIn: false });
   }
 
   _handlePunch = () => {
@@ -71,42 +51,7 @@ export default class TimePunchCardScreen extends React.Component {
   }
 
   render() {
-    let loginView = (
-      <View style={styles.container}>
-        <View style={styles.centerContainer}>
-          <View style={styles.centerAlignContainer}>
-            <TextInput
-              maxLength={12}
-              multiline={false}
-              onChangeText={this._handleUserNameUpdate}
-              placeholder={'Enter User Name'}
-              style={styles.input}
-              value={this.state.username}
-            />
-
-            <TextInput
-                maxLength={12}
-                multiline={false}
-                onChangeText={this._handlePasswordUpdate}
-                placeholder={'Enter Password'}
-                secureTextEntry
-                style={styles.input}
-                value={this.state.password}
-            />
-
-            <TouchableOpacity
-              onPress={this._handlePressLogin}
-              style={styles.buttonLogin}
-              underlayColor={'#328FE6'}
-            >
-              <Text style={styles.label}>LOGIN</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    )
-
-    let loggedInView = (
+    return (
       <View style={styles.container}>
         <View style={styles.centerContainer}>
           <View style={styles.centerAlignContainer}>
@@ -121,22 +66,7 @@ export default class TimePunchCardScreen extends React.Component {
             <Text style={styles.message}>{this.state.lastPunchTime}</Text>
           </View>
         </View>
-        <View style={styles.bottomContainer}>
-          <TouchableOpacity
-            onPress={this._handlePressLogout}
-            style={styles.buttonLogin}
-            underlayColor={'#328FE6'}
-          >
-            <Text style={styles.label}>LOG OUT</Text>
-          </TouchableOpacity>
-        </View>
       </View>
-    )
-
-    let viewToUse = this.state.loggedIn ? loggedInView : loginView
-
-    return (
-      viewToUse
     )
   }
 }
@@ -152,13 +82,6 @@ const styles = StyleSheet.create({
     flex: 11,
     justifyContent: 'center',
     alignItems: 'stretch'
-  },
-  bottomContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingBottom: 20
   },
   centerAlignContainer: {
       flex: 1,
@@ -176,16 +99,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: '#ffffff',
     marginTop: 10
-  },
-  buttonLogin: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: '#328FE6',
-    padding: 10,
-    marginTop: 10,
-    backgroundColor: '#32c5e6'
   },
   buttonPunch: {
     justifyContent: 'center',
@@ -216,3 +129,5 @@ const styles = StyleSheet.create({
     color: '#555555'
   }
 });
+
+export default TimePunchCardScreen;

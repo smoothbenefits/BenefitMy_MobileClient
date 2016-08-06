@@ -1,49 +1,7 @@
-import React, { PropTypes } from 'react';
 import {
-  AppRegistry,
-  Platform,
-  StyleSheet,
-  View,
+  AppRegistry
 } from 'react-native';
-import {
-  NavigationProvider,
-  StackNavigation,
-} from '@exponent/ex-navigation';
 
-import Router from 'Router';
-import registerForPushNotificationsAsync from 'registerForPushNotificationsAsync';
-
-class AppContainer extends React.Component {
-  static propTypes = {
-    exp: PropTypes.object.isRequired,
-  };
-
-  componentWillMount() {
-    registerForPushNotificationsAsync();
-  }
-
-  render() {
-    let { exp: { manifest } } = this.props;
-
-    return (
-      <View style={styles.container}>
-        <NavigationProvider router={Router}>
-          <StackNavigation
-            id="root"
-            initialRoute={Router.getRoute('tabNavigationLayout', {manifest})}
-          />
-        </NavigationProvider>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    marginTop: Platform.OS === 'ios' ? 0 : 24,
-  },
-});
+import AppContainer from 'AppContainer';
 
 AppRegistry.registerComponent('main', () => AppContainer);

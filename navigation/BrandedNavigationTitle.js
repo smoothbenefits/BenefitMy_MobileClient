@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 
-export default function renderBrandedNavigationTitle() {
+function renderBrandedNavigationTitle() {
   return (
     <View style={styles.container}>
       <Image
@@ -28,3 +28,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default renderBrandedNavigationTitle;

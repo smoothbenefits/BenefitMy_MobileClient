@@ -2,7 +2,7 @@
  * @providesModule TabNavigationLayout
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import {
   StackNavigation,
   TabNavigation,
@@ -12,18 +12,13 @@ import {
   FontAwesome,
 } from '@exponent/vector-icons';
 
-import Colors from 'Colors';
 import Router from 'Router';
 
-export default class TabNavigationLayout extends React.Component {
-  static propTypes = {
-    manifest: PropTypes.object.isRequired,
-  };
-
+class TabNavigationLayout extends React.Component {
   _renderIcon(name, isSelected) {
     return (
       <FontAwesome
-        color={isSelected ? Colors.tabIconSelected : Colors.tabIconDefault}
+        color={isSelected ? colors.tabIconSelected : colors.tabIconDefault}
         name={name}
         size={32}
       />
@@ -31,12 +26,10 @@ export default class TabNavigationLayout extends React.Component {
   }
 
   render() {
-    let { manifest } = this.props;
-
     return (
       <TabNavigation
         initialTab="timePunchCard"
-        tabBarColor={Colors.tabBar}
+        tabBarColor={colors.tabBar}
         tabBarHeight={56}
       >
         <TabNavigationItem
@@ -45,14 +38,15 @@ export default class TabNavigationLayout extends React.Component {
         >
           <StackNavigation initialRoute={Router.getRoute('timePunchCard')} />
         </TabNavigationItem>
-
-        <TabNavigationItem
-          id="config"
-          renderIcon={isSelected => this._renderIcon('cog', isSelected)}
-        >
-          <StackNavigation initialRoute={Router.getRoute('config', {manifest})} />
-        </TabNavigationItem>
       </TabNavigation>
     );
   }
 }
+
+const colors = {
+  tabIconDefault: '#888',
+  tabIconSelected: '#2f95dc',
+  tabBar: '#fefefe',
+};
+
+export default TabNavigationLayout;
