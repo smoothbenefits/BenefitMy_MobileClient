@@ -12,20 +12,25 @@ import {
   NavigationProvider,
   StackNavigation,
 } from '@exponent/ex-navigation';
-
+import {Provider} from 'react-redux';
+import configureStore from './rootStore';
 import Router from 'Router';
+
+const store = configureStore();
 
 class AppContainer extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <NavigationProvider router={Router}>
-          <StackNavigation
-            id="root"
-            initialRoute={Router.getRoute('tabNavigationLayout')}
-          />
-        </NavigationProvider>
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <NavigationProvider router={Router}>
+            <StackNavigation
+              id="root"
+              initialRoute={Router.getRoute('tabNavigationLayout')}
+            />
+          </NavigationProvider>
+        </View>
+      </Provider>
     );
   }
 }

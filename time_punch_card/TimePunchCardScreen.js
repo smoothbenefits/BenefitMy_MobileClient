@@ -10,9 +10,11 @@ import {
   View
 } from 'react-native';
 
+import {getStore} from '../app/rootStore';
+import {cardPunchIn, cardPunchOut} from './timePunchCardActions';
 import BrandedNavigationTitle from 'BrandedNavigationTitle';
 
-import TimePunchCardService from 'TimePunchCardService';
+const store = getStore();
 
 class TimePunchCardScreen extends React.Component {
   static route = {
@@ -23,30 +25,23 @@ class TimePunchCardScreen extends React.Component {
 
   constructor(props, context) {
     super(props, context);
+    this.state = store.getState();
 
-    this.state = {
-      punchedIn: null,
-      lastPunchTime: null
-    };
-  }
-
-  _handlePunch = () => {
-    this.state.punchedIn ? this._punchOut() : this._punchIn();
-  }
-
-  _punchIn = () => {
-    var service = new TimePunchCardService();
-    service.createPunchCardAsync().then(() => {
-      this.setState({
-        punchedIn: true,
-        lastPunchTime: new Date().toLocaleString() });
+    store.subscribe(() => {
+      this.setState(store.getState()); // eslint-disable-line react/no-set-state
     });
   }
 
+  _handlePunch = () => {
+    this.state.timePunchCard.punchedIn ? this._punchOut() : this._punchIn();
+  }
+
+  _punchIn = () => {
+    store.dispatch(cardPunchIn());
+  }
+
   _punchOut = () => {
-    this.setState({
-      punchedIn: false,
-      lastPunchTime: new Date().toLocaleString() });
+    store.dispatch(cardPunchOut());
     alert('Punched Out!');
   }
 
@@ -60,10 +55,10 @@ class TimePunchCardScreen extends React.Component {
               style={styles.buttonPunch}
               underlayColor={'#328FE6'}
             >
-              <Text style={styles.label}>{this.state.punchedIn ? 'Punch Out' : 'Punch In'}</Text>
+              <Text style={styles.label}>{this.state.timePunchCard.punchedIn ? 'Punch Out' : 'Punch In'}</Text>
             </TouchableOpacity>
-            <Text style={styles.message}>{this.state.punchedIn != null ? (this.state.punchedIn ? 'Last Punched-in' : 'Last Punched-out' ) : ''}</Text>
-            <Text style={styles.message}>{this.state.lastPunchTime}</Text>
+            <Text style={styles.message}>{this.state.timePunchCard.punchedIn != null ? (this.state.timePunchCard.punchedIn ? 'Last Punched-in' : 'Last Punched-out' ) : ''}</Text>
+            <Text style={styles.message}>{this.state.timePunchCard.lastPunchTime}</Text>
           </View>
         </View>
       </View>
