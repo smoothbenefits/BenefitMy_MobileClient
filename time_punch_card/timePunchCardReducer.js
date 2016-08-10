@@ -10,15 +10,34 @@ export default function () {
 
     return (state = initialState, { type, payload }) => {
         switch (type) {
+          // Load Card
           case timePunchCardActionTypes.load.REQUEST:
-          case timePunchCardActionTypes.punchIn.REQUEST:
-          case timePunchCardActionTypes.punchOut.REQUEST:
             return {
                 ...state,
                 errors: null,
                 isFetching: true
             };
+          case timePunchCardActionTypes.load.SUCCESS:
+            return {
+                ...state,
+                errors: null,
+                isFetching: false,
+                data: payload
+            };
+          case timePunchCardActionTypes.load.FAILURE:
+            return {
+                ...state,
+                errors: payload,
+                isFetching: false
+            };
 
+          // Punch-In
+          case timePunchCardActionTypes.punchIn.REQUEST:
+            return {
+                ...state,
+                errors: null,
+                isFetching: true
+            };
           case timePunchCardActionTypes.punchIn.SUCCESS:
             return {
               ...state,
@@ -27,6 +46,20 @@ export default function () {
               errors: null,
               isFetching: false,
               data: payload
+            };
+          case timePunchCardActionTypes.punchIn.FAILURE:
+            return {
+                ...state,
+                errors: payload,
+                isFetching: false
+            };
+
+          // Punch-Out
+          case timePunchCardActionTypes.punchOut.REQUEST:
+            return {
+                ...state,
+                errors: null,
+                isFetching: true
             };
           case timePunchCardActionTypes.punchOut.SUCCESS:
             return {
@@ -37,16 +70,6 @@ export default function () {
               isFetching: false,
               data: payload
             };
-          case timePunchCardActionTypes.load.SUCCESS:
-            return {
-                ...state,
-                errors: null,
-                isFetching: false,
-                data: payload
-            };
-
-          case timePunchCardActionTypes.load.FAILURE:
-          case timePunchCardActionTypes.punchIn.FAILURE:
           case timePunchCardActionTypes.punchOut.FAILURE:
             return {
                 ...state,
