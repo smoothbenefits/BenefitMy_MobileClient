@@ -1,5 +1,5 @@
 /**
- * @providesModule AppContainer
+ * @providesModule AppComponent
  */
 
 import React from 'react';
@@ -18,7 +18,7 @@ import Router from 'Router';
 
 const store = configureStore();
 
-class AppContainer extends React.Component {
+class AppComponent extends React.Component {
   render() {
     return (
       <Provider store={store}>
@@ -43,4 +43,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AppContainer;
+export default AppComponent;

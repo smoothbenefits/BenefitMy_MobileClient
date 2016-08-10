@@ -13,18 +13,18 @@
 {
   // This is the name of your app in all senses of the word: it appears below
   // the icon on the home screen, in push notifications, etc.
-  name: "work_benefits_me_mobile_client",
+  name: "work-benefits-me-mobile-client",
 
   // The description is currently not used but may at some point be made
   // visible inside of the Exponent client to help users discover your app.
   description: "WorkBenefits.Me Mobile Client",
 
   // The url-name of the app: https://exp.host/@your-username/slug
-  slug: "work_benefits_me",
+  slug: "work-benefits-me",
 
   // The target Exponent SDK version. This must line up with the react-native
   // version in package.json
-  sdkVersion: "7.0.0",
+  sdkVersion: "8.0.0",
 
   // Your app version -- for your own use. This is available to your app at
   // runtime, so you can use it for reporting and such.
