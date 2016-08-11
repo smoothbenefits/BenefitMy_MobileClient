@@ -5,7 +5,11 @@ import {
   Text,
   View,
   TextInput,
+  Image
 } from 'react-native';
+import {
+  FontAwesome,
+} from '@exponent/vector-icons';
 
 class LoginScreenComponent extends React.Component {
   constructor(props, context) {
@@ -16,7 +20,7 @@ class LoginScreenComponent extends React.Component {
     let logView;
     if (this.props.isLoggedIn) {
       logView = (
-        <View style={styles.centerAlignContainer}>
+        <View style={styles.topAlignContainer}>
           <TouchableOpacity
             onPress={this.props.handleLogOut}
             style={styles.buttonLogin}
@@ -28,15 +32,16 @@ class LoginScreenComponent extends React.Component {
       );
     } else {
       logView = (
-        <View style={styles.centerAlignContainer}>
+        <View style={styles.topAlignContainer}>
           <TextInput
-            maxLength={12}
+            keyboardType={'email-address'}
+            maxLength={40}
             multiline={false}
-            placeholder={'Enter User Name'}
+            placeholder={'Enter Account Email'}
             style={styles.input}
           />
           <TextInput
-              maxLength={12}
+              maxLength={30}
               multiline={false}
               placeholder={'Enter Password'}
               secureTextEntry
@@ -47,7 +52,13 @@ class LoginScreenComponent extends React.Component {
             style={styles.buttonLogin}
             underlayColor={'#328FE6'}
           >
-            <Text style={styles.label}>LOGIN</Text>
+            <Text style={styles.label}>
+              <FontAwesome
+                  name='lock'
+                  size={20}
+              />
+              <Text> Sign In</Text>
+            </Text>
           </TouchableOpacity>
         </View>
       );
@@ -56,6 +67,13 @@ class LoginScreenComponent extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.centerContainer}>
+          <View style={styles.centerAlignContainer}>
+            <Image
+              resizeMode="contain"
+              source={require('../assets/images/wb_logo_w_text.png')}
+              style={{ width: 655 / 2.0, height: 226 / 2.0 }}
+            />
+          </View>
           {logView}
         </View>
       </View>
@@ -79,19 +97,17 @@ const styles = StyleSheet.create({
   centerContainer: {
     flex: 11,
     justifyContent: 'center',
-    alignItems: 'stretch'
+    alignItems: 'center'
   },
-  bottomContainer: {
+  topAlignContainer: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingBottom: 20
+    justifyContent: 'flex-start',
+    alignItems: 'center'
   },
   centerAlignContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   input: {
     width: 250,
