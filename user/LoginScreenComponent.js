@@ -10,6 +10,7 @@ import {
 import {
   FontAwesome,
 } from '@exponent/vector-icons';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 class LoginScreenComponent extends React.Component {
   constructor(props, context) {
@@ -34,6 +35,8 @@ class LoginScreenComponent extends React.Component {
       logView = (
         <View style={styles.topAlignContainer}>
           <TextInput
+            autoCapitalize={'none'}
+            autoCorrect={false}
             keyboardType={'email-address'}
             maxLength={40}
             multiline={false}
@@ -41,6 +44,8 @@ class LoginScreenComponent extends React.Component {
             style={styles.input}
           />
           <TextInput
+              autoCapitalize={'none'}
+              autoCorrect={false}
               maxLength={30}
               multiline={false}
               placeholder={'Enter Password'}
@@ -76,6 +81,7 @@ class LoginScreenComponent extends React.Component {
           </View>
           {logView}
         </View>
+        <KeyboardSpacer />
       </View>
     );
   }
