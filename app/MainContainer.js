@@ -37,7 +37,7 @@ class MainContainer extends React.Component {
 
   render() {
     let view;
-    if (this.state.user.isLoggedIn) {
+    if (this.state.user.userData) {
       view = (
         <NavigationProvider router={Router}>
           <StackNavigation

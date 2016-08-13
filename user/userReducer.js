@@ -3,8 +3,11 @@ import { userActionTypes } from './userActionTypes';
 export default function () {
 
     const initialState = {
+      userEmail: null,
+      password: null,
       isFetching: false,
-      isLoggedIn: false
+      userData: null,
+      lastLoginErrors: null
     };
 
     return (state = initialState, { type, payload }) => {
@@ -13,22 +16,25 @@ export default function () {
           case userActionTypes.logIn.REQUEST:
             return {
                 ...state,
-                isFetching: true
+                isFetching: true,
+                lastLoginErrors: null
             };
           case userActionTypes.logIn.SUCCESS:
             return {
               ...state,
-              isLoggedIn: true,
-              isFetching: false
+              userData: payload,
+              isFetching: false,
+              lastLoginErrors: null
             };
           case userActionTypes.logIn.FAILURE:
             return {
                 ...state,
-                isLoggedIn: false,
-                isFetching: false
+                userData: null,
+                isFetching: false,
+                lastLoginErrors: payload
             };
 
-          // Punch-Out
+          // Log-Out
           case userActionTypes.logOut.REQUEST:
             return {
                 ...state,
@@ -37,13 +43,23 @@ export default function () {
           case userActionTypes.logOut.SUCCESS:
             return {
               ...state,
-              isLoggedIn: false,
-              isFetching: false
+              userData: null,
+              isFetching: false,
+              password: null
             };
           case userActionTypes.logOut.FAILURE:
             return {
-                ...state,
-                isFetching: false
+              ...state,
+              isFetching: false
+            };
+
+          // User Credentials Updates
+          case userActionTypes.credentialsInputUpdate:
+            return {
+              ...state,
+              userEmail: payload.userEmail,
+              password: payload.password,
+              lastLoginErrors: null
             };
 
           default:

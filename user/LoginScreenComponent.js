@@ -19,7 +19,7 @@ class LoginScreenComponent extends React.Component {
 
   render() {
     let logView;
-    if (this.props.isLoggedIn) {
+    if (this.props.userData) {
       logView = (
         <View style={styles.topAlignContainer}>
           <TouchableOpacity
@@ -40,6 +40,7 @@ class LoginScreenComponent extends React.Component {
             keyboardType={'email-address'}
             maxLength={40}
             multiline={false}
+            onChangeText={this.props.handleUserEmailUpdate}
             placeholder={'Enter Account Email'}
             style={styles.input}
           />
@@ -48,6 +49,7 @@ class LoginScreenComponent extends React.Component {
               autoCorrect={false}
               maxLength={30}
               multiline={false}
+              onChangeText={this.props.handlePasswordUpdate}
               placeholder={'Enter Password'}
               secureTextEntry
               style={styles.input}
@@ -88,9 +90,12 @@ class LoginScreenComponent extends React.Component {
 }
 
 LoginScreenComponent.propTypes = {
-  isLoggedIn: PropTypes.bool.isRequired,
+  userData: PropTypes.object,
+  lastLoginFailed: PropTypes.bool.isRequired,
   handleLogIn: PropTypes.func.isRequired,
-  handleLogOut: PropTypes.func.isRequired
+  handleLogOut: PropTypes.func.isRequired,
+  handleUserEmailUpdate: PropTypes.func.isRequired,
+  handlePasswordUpdate: PropTypes.func.isRequired
 };
 
 const styles = StyleSheet.create({

@@ -22,9 +22,9 @@ class TimePunchCardScreenComponent extends React.Component {
               style={styles.buttonPunch}
               underlayColor={'#328FE6'}
             >
-              <Text style={styles.label}>{this.props.punchedIn ? 'Punch Out' : 'Punch In'}</Text>
+              <Text style={styles.label}>{this.props.punchedIn ? 'Check Out' : 'Check In'}</Text>
             </TouchableOpacity>
-            <Text style={styles.message}>{this.props.punchedIn != null ? (this.props.punchedIn ? 'Last Punched-in' : 'Last Punched-out' ) : ''}</Text>
+            <Text style={styles.message}>{this.props.punchedIn != null ? (this.props.punchedIn ? 'Last Checked-in' : 'Last Checked-out' ) : ''}</Text>
             <Text style={styles.message}>{this.props.lastPunchTime}</Text>
           </View>
         </View>
