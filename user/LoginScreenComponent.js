@@ -17,6 +17,18 @@ class LoginScreenComponent extends React.Component {
     super(props, context);
   }
 
+  _renderLoginFailureMessage() {
+    if (this.props.lastLoginFailed) {
+      return (
+        <Text
+          style={styles.warnText}
+        >
+          Your last sign in attempt was not successful. Please double check your credentials entered and try again.
+        </Text>
+      );
+    }
+  }
+
   render() {
     let logView;
     if (this.props.userData) {
@@ -34,6 +46,7 @@ class LoginScreenComponent extends React.Component {
     } else {
       logView = (
         <View style={styles.topAlignContainer}>
+          {this._renderLoginFailureMessage()}
           <TextInput
             autoCapitalize={'none'}
             autoCorrect={false}
@@ -140,6 +153,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     color: '#ffffff'
+  },
+  warnText: {
+    width: 230,
+    alignSelf: 'center',
+    textAlign: 'center',
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#ee2222'
   },
   buttonLogin: {
     justifyContent: 'center',
