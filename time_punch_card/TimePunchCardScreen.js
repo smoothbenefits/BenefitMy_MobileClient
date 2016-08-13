@@ -58,6 +58,7 @@ class TimePunchCardScreen extends React.Component {
         handlePunch={this._handlePunch}
         lastPunchTime={this.state.timePunchCard.lastPunchTime}
         punchedIn={this.state.timePunchCard.punchedIn}
+        showSpinner={this.state.timePunchCard.isFetching}
       />
     );
   }

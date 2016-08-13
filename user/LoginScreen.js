@@ -63,6 +63,7 @@ class LoginScreen extends React.Component {
         handlePasswordUpdate={this._handlePasswordUpdate}
         handleUserEmailUpdate={this._handleUserEmailUpdate}
         lastLoginFailed={this.state.user.lastLoginErrors != null}
+        showSpinner={this.state.user.isFetching}
         userData={this.state.user.userData}
       />
     );

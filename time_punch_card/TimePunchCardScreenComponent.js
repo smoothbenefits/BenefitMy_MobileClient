@@ -5,6 +5,7 @@ import {
   Text,
   View
 } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 class TimePunchCardScreenComponent extends React.Component {
 
@@ -28,6 +29,7 @@ class TimePunchCardScreenComponent extends React.Component {
             <Text style={styles.message}>{this.props.lastPunchTime}</Text>
           </View>
         </View>
+        <Spinner visible={this.props.showSpinner} />
       </View>
     )
   }
@@ -36,7 +38,8 @@ class TimePunchCardScreenComponent extends React.Component {
 TimePunchCardScreenComponent.propTypes = {
   punchedIn: PropTypes.bool,
   handlePunch: PropTypes.func.isRequired,
-  lastPunchTime: PropTypes.string
+  lastPunchTime: PropTypes.string,
+  showSpinner: PropTypes.bool.isRequired
 };
 
 const styles = StyleSheet.create({

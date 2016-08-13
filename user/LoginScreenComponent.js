@@ -11,6 +11,7 @@ import {
   FontAwesome,
 } from '@exponent/vector-icons';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 class LoginScreenComponent extends React.Component {
   constructor(props, context) {
@@ -97,6 +98,7 @@ class LoginScreenComponent extends React.Component {
           {logView}
         </View>
         <KeyboardSpacer />
+        <Spinner visible={this.props.showSpinner} />
       </View>
     );
   }
@@ -108,7 +110,8 @@ LoginScreenComponent.propTypes = {
   handleLogIn: PropTypes.func.isRequired,
   handleLogOut: PropTypes.func.isRequired,
   handleUserEmailUpdate: PropTypes.func.isRequired,
-  handlePasswordUpdate: PropTypes.func.isRequired
+  handlePasswordUpdate: PropTypes.func.isRequired,
+  showSpinner: PropTypes.bool.isRequired
 };
 
 const styles = StyleSheet.create({
