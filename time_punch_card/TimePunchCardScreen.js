@@ -27,9 +27,11 @@ class TimePunchCardScreen extends React.Component {
   }
 
   componentDidMount() {
-    this.unsubscribe = store.subscribe(() => {
-      this.setState(store.getState()); // eslint-disable-line react/no-set-state
-    });
+    if (!this.unsubscribe) {
+      this.unsubscribe = store.subscribe(() => {
+        this.setState(store.getState()); // eslint-disable-line react/no-set-state
+      });
+    }
   }
 
   componentWillUnmount() {

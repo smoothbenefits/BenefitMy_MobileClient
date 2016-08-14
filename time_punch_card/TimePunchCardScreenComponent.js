@@ -76,10 +76,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderRadius: 64,
-    borderColor: '#6E8E4B',
+    borderColor: '#052F3E',
     padding: 10,
     marginTop: 10,
-    backgroundColor: '#6EBE4B'
+    backgroundColor: '#052F7E'
   },
   label: {
     width: 230,

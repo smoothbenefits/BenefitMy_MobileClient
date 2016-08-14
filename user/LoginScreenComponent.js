@@ -57,6 +57,7 @@ class LoginScreenComponent extends React.Component {
             onChangeText={this.props.handleUserEmailUpdate}
             placeholder={'Enter Account Email'}
             style={styles.input}
+            value={this.props.currentUserEmail}
           />
           <TextInput
               autoCapitalize={'none'}
@@ -73,13 +74,13 @@ class LoginScreenComponent extends React.Component {
             style={styles.buttonLogin}
             underlayColor={'#328FE6'}
           >
-            <Text style={styles.label}>
-              <FontAwesome
-                  name='lock'
-                  size={20}
-              />
-              <Text> Sign In</Text>
-            </Text>
+            <FontAwesome
+                name='lock'
+                size={20}
+                style={styles.labelIconContainer}
+            >
+              <Text style={styles.label}> Sign In</Text>
+            </FontAwesome>
           </TouchableOpacity>
         </View>
       );
@@ -91,7 +92,7 @@ class LoginScreenComponent extends React.Component {
           <View style={styles.centerAlignContainer}>
             <Image
               resizeMode="contain"
-              source={require('../assets/images/wb_logo_w_text.png')}
+              source={require('../assets/images/wb-logo-w-text.png')}
               style={{ width: 655 / 2.0, height: 226 / 2.0 }}
             />
           </View>
@@ -111,7 +112,8 @@ LoginScreenComponent.propTypes = {
   handleLogOut: PropTypes.func.isRequired,
   handleUserEmailUpdate: PropTypes.func.isRequired,
   handlePasswordUpdate: PropTypes.func.isRequired,
-  showSpinner: PropTypes.bool.isRequired
+  showSpinner: PropTypes.bool.isRequired,
+  currentUserEmail: PropTypes.string
 };
 
 const styles = StyleSheet.create({
@@ -155,6 +157,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     fontWeight: '600',
+    color: '#ffffff'
+  },
+  labelIconContainer: {
+    width: 230,
+    flex: 1,
+    textAlign: 'center',
+    alignSelf: 'center',
     color: '#ffffff'
   },
   warnText: {
