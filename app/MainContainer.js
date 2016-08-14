@@ -23,9 +23,11 @@ class MainContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.unsubscribe = store.subscribe(() => {
-      this.setState(store.getState()); // eslint-disable-line react/no-set-state
-    });
+    if (!this.unsubscribe) {
+      this.unsubscribe = store.subscribe(() => {
+        this.setState(store.getState()); // eslint-disable-line react/no-set-state
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -37,7 +39,7 @@ class MainContainer extends React.Component {
 
   render() {
     let view;
-    if (this.state.user.isLoggedIn) {
+    if (this.state.user.userData) {
       view = (
         <NavigationProvider router={Router}>
           <StackNavigation

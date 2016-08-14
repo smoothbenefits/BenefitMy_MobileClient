@@ -24,8 +24,15 @@ export function cardPunchIn() {
     dispatch(punchIn.request());
     var service = new TimePunchCardService();
     service.createPunchCardAsync()
-      .then(() => {
-        dispatch(punchIn.success());
+      .then((response) => {
+        if (response.ok) {
+          dispatch(punchIn.success());
+        } else {
+          dispatch(punchIn.failure({
+            message: 'Failed to create punch card!',
+            originalResponse: response
+          }));
+        }
       })
       .catch((errors) => {
         dispatch(punchIn.failure(errors));

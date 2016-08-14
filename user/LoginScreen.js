@@ -8,7 +8,7 @@ import BrandedNavigationTitle from 'BrandedNavigationTitle';
 import LoginScreenComponent from './LoginScreenComponent';
 
 import {getStore} from '../app/rootStore';
-import {userLogIn, userLogOut} from './userActions';
+import {userLogIn, userLogOut, userCredentialsUpdate} from './userActions';
 
 const store = getStore();
 
@@ -27,9 +27,11 @@ class LoginScreen extends React.Component {
   }
 
   componentDidMount() {
-    this.unsubscribe = store.subscribe(() => {
-      this.setState(store.getState()); // eslint-disable-line react/no-set-state
-    });
+    if (!this.unsubscribe) {
+      this.unsubscribe = store.subscribe(() => {
+        this.setState(store.getState()); // eslint-disable-line react/no-set-state
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -39,8 +41,16 @@ class LoginScreen extends React.Component {
     }
   }
 
+  _handleUserEmailUpdate = (userEmail) => {
+    store.dispatch(userCredentialsUpdate(userEmail.trim(), this.state.user.password));
+  }
+
+  _handlePasswordUpdate = (password) => {
+    store.dispatch(userCredentialsUpdate(this.state.user.userEmail, password.trim()));
+  }
+
   _handleLogin = () => {
-    store.dispatch(userLogIn());
+    store.dispatch(userLogIn(this.state.user.userEmail, this.state.user.password));
   }
 
   _handleLogout = () => {
@@ -50,9 +60,14 @@ class LoginScreen extends React.Component {
   render() {
     return (
       <LoginScreenComponent
+        currentUserEmail={this.state.user.userEmail}
         handleLogIn={this._handleLogin}
         handleLogOut={this._handleLogout}
-        isLoggedIn={this.state.user.isLoggedIn}
+        handlePasswordUpdate={this._handlePasswordUpdate}
+        handleUserEmailUpdate={this._handleUserEmailUpdate}
+        lastLoginFailed={this.state.user.lastLoginErrors != null}
+        showSpinner={this.state.user.isFetching}
+        userData={this.state.user.userData}
       />
     );
   }

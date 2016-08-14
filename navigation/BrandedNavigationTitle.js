@@ -10,19 +10,25 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
+import Dimensions from 'Dimensions';
 import {
   FontAwesome,
 } from '@exponent/vector-icons';
 import {logOut} from '../user/userUtility';
 
 function renderBrandedNavigationTitle() {
+  // Compute the banner image size
+  let screenWidth = Dimensions.get('window').width;
+  let imgWidth = screenWidth - 90*2; // The center potion of the banner area
+  let imgHeight = imgWidth / 400.0 * 80;
+
   return (
     <View style={styles.container}>
       <View style={styles.sideContainer} />
       <Image
         resizeMode="contain"
-        source={require('../assets/images/wb_logo_w_text_2.png')}
-        style={{ width: 655 / 3.0, height: 113 / 3.0 }}
+        source={require('../assets/images/wb-logo-w-text-2.png')}
+        style={{ width: imgWidth, height: imgHeight }}
       />
       <View style={styles.sideContainer}>
         <TouchableOpacity
@@ -30,13 +36,13 @@ function renderBrandedNavigationTitle() {
           style={styles.buttonLogOut}
           underlayColor={'#328FE6'}
         >
-          <Text style={styles.label}>
-            <FontAwesome
-                name='lock'
-                size={10}
-            />
-             Sign Out
-          </Text>
+          <FontAwesome
+              name='lock'
+              size={10}
+              style={styles.labelIconContainer}
+          >
+            <Text style={styles.label}> Sign Out</Text>
+          </FontAwesome>
         </TouchableOpacity>
       </View>
     </View>
@@ -70,6 +76,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 10,
     fontWeight: '600',
+    color: '#ffffff'
+  },
+  labelIconContainer: {
+    flex: 1,
+    textAlign: 'center',
+    alignSelf: 'center',
     color: '#ffffff'
   }
 });

@@ -11,15 +11,28 @@ import {
   FontAwesome,
 } from '@exponent/vector-icons';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 class LoginScreenComponent extends React.Component {
   constructor(props, context) {
     super(props, context);
   }
 
+  _renderLoginFailureMessage() {
+    if (this.props.lastLoginFailed) {
+      return (
+        <Text
+          style={styles.warnText}
+        >
+          Your last sign in attempt was not successful. Please double check your credentials entered and try again.
+        </Text>
+      );
+    }
+  }
+
   render() {
     let logView;
-    if (this.props.isLoggedIn) {
+    if (this.props.userData) {
       logView = (
         <View style={styles.topAlignContainer}>
           <TouchableOpacity
@@ -34,20 +47,24 @@ class LoginScreenComponent extends React.Component {
     } else {
       logView = (
         <View style={styles.topAlignContainer}>
+          {this._renderLoginFailureMessage()}
           <TextInput
             autoCapitalize={'none'}
             autoCorrect={false}
             keyboardType={'email-address'}
             maxLength={40}
             multiline={false}
+            onChangeText={this.props.handleUserEmailUpdate}
             placeholder={'Enter Account Email'}
             style={styles.input}
+            value={this.props.currentUserEmail}
           />
           <TextInput
               autoCapitalize={'none'}
               autoCorrect={false}
               maxLength={30}
               multiline={false}
+              onChangeText={this.props.handlePasswordUpdate}
               placeholder={'Enter Password'}
               secureTextEntry
               style={styles.input}
@@ -57,13 +74,13 @@ class LoginScreenComponent extends React.Component {
             style={styles.buttonLogin}
             underlayColor={'#328FE6'}
           >
-            <Text style={styles.label}>
-              <FontAwesome
-                  name='lock'
-                  size={20}
-              />
-              <Text> Sign In</Text>
-            </Text>
+            <FontAwesome
+                name='lock'
+                size={20}
+                style={styles.labelIconContainer}
+            >
+              <Text style={styles.label}> Sign In</Text>
+            </FontAwesome>
           </TouchableOpacity>
         </View>
       );
@@ -75,22 +92,28 @@ class LoginScreenComponent extends React.Component {
           <View style={styles.centerAlignContainer}>
             <Image
               resizeMode="contain"
-              source={require('../assets/images/wb_logo_w_text.png')}
+              source={require('../assets/images/wb-logo-w-text.png')}
               style={{ width: 655 / 2.0, height: 226 / 2.0 }}
             />
           </View>
           {logView}
         </View>
         <KeyboardSpacer />
+        <Spinner visible={this.props.showSpinner} />
       </View>
     );
   }
 }
 
 LoginScreenComponent.propTypes = {
-  isLoggedIn: PropTypes.bool.isRequired,
+  userData: PropTypes.object,
+  lastLoginFailed: PropTypes.bool.isRequired,
   handleLogIn: PropTypes.func.isRequired,
-  handleLogOut: PropTypes.func.isRequired
+  handleLogOut: PropTypes.func.isRequired,
+  handleUserEmailUpdate: PropTypes.func.isRequired,
+  handlePasswordUpdate: PropTypes.func.isRequired,
+  showSpinner: PropTypes.bool.isRequired,
+  currentUserEmail: PropTypes.string
 };
 
 const styles = StyleSheet.create({
@@ -135,6 +158,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     color: '#ffffff'
+  },
+  labelIconContainer: {
+    width: 230,
+    flex: 1,
+    textAlign: 'center',
+    alignSelf: 'center',
+    color: '#ffffff'
+  },
+  warnText: {
+    width: 230,
+    alignSelf: 'center',
+    textAlign: 'center',
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#ee2222'
   },
   buttonLogin: {
     justifyContent: 'center',

@@ -5,6 +5,7 @@ import {
   Text,
   View
 } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 class TimePunchCardScreenComponent extends React.Component {
 
@@ -22,12 +23,13 @@ class TimePunchCardScreenComponent extends React.Component {
               style={styles.buttonPunch}
               underlayColor={'#328FE6'}
             >
-              <Text style={styles.label}>{this.props.punchedIn ? 'Punch Out' : 'Punch In'}</Text>
+              <Text style={styles.label}>{this.props.punchedIn ? 'Check Out' : 'Check In'}</Text>
             </TouchableOpacity>
-            <Text style={styles.message}>{this.props.punchedIn != null ? (this.props.punchedIn ? 'Last Punched-in' : 'Last Punched-out' ) : ''}</Text>
+            <Text style={styles.message}>{this.props.punchedIn != null ? (this.props.punchedIn ? 'Last Checked-in' : 'Last Checked-out' ) : ''}</Text>
             <Text style={styles.message}>{this.props.lastPunchTime}</Text>
           </View>
         </View>
+        <Spinner visible={this.props.showSpinner} />
       </View>
     )
   }
@@ -36,7 +38,8 @@ class TimePunchCardScreenComponent extends React.Component {
 TimePunchCardScreenComponent.propTypes = {
   punchedIn: PropTypes.bool,
   handlePunch: PropTypes.func.isRequired,
-  lastPunchTime: PropTypes.string
+  lastPunchTime: PropTypes.string,
+  showSpinner: PropTypes.bool.isRequired
 };
 
 const styles = StyleSheet.create({
@@ -73,10 +76,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderRadius: 64,
-    borderColor: '#6E8E4B',
+    borderColor: '#052F3E',
     padding: 10,
     marginTop: 10,
-    backgroundColor: '#6EBE4B'
+    backgroundColor: '#052F7E'
   },
   label: {
     width: 230,
