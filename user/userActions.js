@@ -23,26 +23,16 @@ export function userLogIn(userEmail, password) {
     var service = new UserService();
     service.getUserDataAsync(userEmail, password)
       .then(
-        (response) => {
-          if (response.ok) {
-            return response.json().then((jsonBody) => {
-              var userData = jsonBody;
-              dispatch(logIn.success(userData));
-            });
-          } else {
-            dispatch(logIn.failure({
-              message: 'User Login Failed!',
-              originalResponse: response
-            }));
-          }
-        },
-        (errors) => {
-          dispatch(logIn.failure(errors));
+        (userData) => {
+          dispatch(logIn.success(userData));
         }
       )
       .catch(
         (errors) => {
-          dispatch(logIn.failure(errors));
+          dispatch(logIn.failure({
+            message: 'User Login Failed!',
+            errors: errors
+          }));
         }
       );
   };

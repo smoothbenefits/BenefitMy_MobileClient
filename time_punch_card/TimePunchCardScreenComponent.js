@@ -13,21 +13,42 @@ class TimePunchCardScreenComponent extends React.Component {
     super(props, context);
   }
 
+  _renderMainControl() {
+    if (this.props.requiresReload) {
+      return (
+        <View style={styles.centerAlignContainer}>
+          <TouchableOpacity
+            onPress={this.props.handleReload}
+            style={styles.buttonPunch}
+            underlayColor={'#328FE6'}
+          >
+            <Text style={styles.label}>Reload</Text>
+          </TouchableOpacity>
+          <Text style={styles.message}>There was possibily a networking issue encountered. Please double check the network connection of the device and use the button above to Reload.</Text>
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.centerAlignContainer}>
+          <TouchableOpacity
+            onPress={this.props.handlePunch}
+            style={styles.buttonPunch}
+            underlayColor={'#328FE6'}
+          >
+            <Text style={styles.label}>{this.props.punchedIn ? 'Check Out' : 'Check In'}</Text>
+          </TouchableOpacity>
+          <Text style={styles.message}>{this.props.punchedIn != null ? (this.props.punchedIn ? 'Last Checked-in' : 'Last Checked-out' ) : ''}</Text>
+          <Text style={styles.message}>{this.props.lastPunchTime}</Text>
+        </View>
+      )
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.centerContainer}>
-          <View style={styles.centerAlignContainer}>
-            <TouchableOpacity
-              onPress={this.props.handlePunch}
-              style={styles.buttonPunch}
-              underlayColor={'#328FE6'}
-            >
-              <Text style={styles.label}>{this.props.punchedIn ? 'Check Out' : 'Check In'}</Text>
-            </TouchableOpacity>
-            <Text style={styles.message}>{this.props.punchedIn != null ? (this.props.punchedIn ? 'Last Checked-in' : 'Last Checked-out' ) : ''}</Text>
-            <Text style={styles.message}>{this.props.lastPunchTime}</Text>
-          </View>
+          {this._renderMainControl()}
         </View>
         <Spinner visible={this.props.showSpinner} />
       </View>
@@ -39,7 +60,9 @@ TimePunchCardScreenComponent.propTypes = {
   punchedIn: PropTypes.bool,
   handlePunch: PropTypes.func.isRequired,
   lastPunchTime: PropTypes.string,
-  showSpinner: PropTypes.bool.isRequired
+  showSpinner: PropTypes.bool.isRequired,
+  requiresReload: PropTypes.bool.isRequired,
+  handleReload: PropTypes.func.isRequired
 };
 
 const styles = StyleSheet.create({

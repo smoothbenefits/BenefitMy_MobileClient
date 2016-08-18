@@ -5,7 +5,7 @@ export default function () {
     const initialState = {
       isFetching: false,
       errors: null,
-      data: null
+      currentCard: null
     };
 
     return (state = initialState, { type, payload }) => {
@@ -22,13 +22,14 @@ export default function () {
                 ...state,
                 errors: null,
                 isFetching: false,
-                data: payload
+                currentCard: payload
             };
           case timePunchCardActionTypes.load.FAILURE:
             return {
                 ...state,
                 errors: payload,
-                isFetching: false
+                isFetching: false,
+                currentCard: null
             };
 
           // Punch-In
@@ -41,11 +42,9 @@ export default function () {
           case timePunchCardActionTypes.punchIn.SUCCESS:
             return {
               ...state,
-              punchedIn: true,
-              lastPunchTime: new Date().toLocaleString(),
               errors: null,
               isFetching: false,
-              data: payload
+              currentCard: payload
             };
           case timePunchCardActionTypes.punchIn.FAILURE:
             return {
@@ -64,11 +63,9 @@ export default function () {
           case timePunchCardActionTypes.punchOut.SUCCESS:
             return {
               ...state,
-              punchedIn: false,
-              lastPunchTime: new Date().toLocaleString(),
               errors: null,
               isFetching: false,
-              data: payload
+              currentCard: null
             };
           case timePunchCardActionTypes.punchOut.FAILURE:
             return {
