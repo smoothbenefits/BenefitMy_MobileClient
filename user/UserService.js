@@ -2,6 +2,8 @@
  * @providesModule UserService
  */
 
+import {checkStatus} from '../common/apiUtils';
+
 const API_ENDPOINT = 'http://staging.workbenefits.me/api/v1/user';
 
 class UserService {
@@ -17,7 +19,8 @@ class UserService {
         'email': userEmail,
         'password': password
       })
-    });
+    })
+    .then(checkStatus);
   }
 
 }

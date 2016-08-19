@@ -4,11 +4,14 @@
 
 import React from 'react';
 
+import moment from 'moment';
+
 import BrandedNavigationTitle from 'BrandedNavigationTitle';
 
 import {getStore} from '../app/rootStore';
-import {cardPunchIn, cardPunchOut} from './timePunchCardActions';
+import {loadCard, cardPunchIn, cardPunchOut} from './timePunchCardActions';
 import TimePunchCardScreenComponent from './TimePunchCardScreenComponent';
+import {DateFormatConstants} from '../common/constants';
 
 const store = getStore();
 
@@ -32,6 +35,11 @@ class TimePunchCardScreen extends React.Component {
         this.setState(store.getState()); // eslint-disable-line react/no-set-state
       });
     }
+
+    // Dispatch action to load card for user
+    store.dispatch(loadCard(
+      this.state.user.userData
+    ));
   }
 
   componentWillUnmount() {
@@ -41,25 +49,49 @@ class TimePunchCardScreen extends React.Component {
     }
   }
 
+  _handleReload = () => {
+    store.dispatch(loadCard(
+      this.state.user.userData
+    ));
+  }
+
   _handlePunch = () => {
-    this.state.timePunchCard.punchedIn ? this._punchOut() : this._punchIn();
+    this._isCurrentlyPunchedIn() ? this._punchOut() : this._punchIn();
   }
 
   _punchIn = () => {
-    store.dispatch(cardPunchIn());
+    store.dispatch(cardPunchIn(
+      this.state.user.userData
+    ));
   }
 
   _punchOut = () => {
-    store.dispatch(cardPunchOut());
-    alert('Punched Out!');
+    store.dispatch(cardPunchOut(
+      this.state.user.userData
+    ));
+  }
+
+  _isCurrentlyPunchedIn = () => {
+    return this.state.timePunchCard.currentCard
+      && this.state.timePunchCard.currentCard.inProgress;
+  }
+
+  _lastPunchTime = () => {
+    if (this.state.timePunchCard.currentCard) {
+      return moment(this.state.timePunchCard.currentCard.updatedTimestamp).format(DateFormatConstants.FullDateFormat);
+    }
+
+    return null;
   }
 
   render() {
     return (
       <TimePunchCardScreenComponent
         handlePunch={this._handlePunch}
-        lastPunchTime={this.state.timePunchCard.lastPunchTime}
-        punchedIn={this.state.timePunchCard.punchedIn}
+        handleReload={this._handleReload}
+        lastPunchTime={this._lastPunchTime()}
+        punchedIn={this._isCurrentlyPunchedIn()}
+        requiresReload={this.state.timePunchCard.errors != null}
         showSpinner={this.state.timePunchCard.isFetching}
       />
     );
