@@ -3,11 +3,13 @@
  */
 import _ from 'underscore';
 import {checkStatus} from '../common/apiUtils';
+import GeoLocationService from '../common/GeoLocationService';
 
 const API_ENDPOINT = 'http://stage.timetracking.workbenefits.me/api/v1';
 
 const DEFAULT_CARD_TYPE = 'Work Time';
 const ATTRIBUTE_HOURLY_RATE = 'HourlyRate';
+const ATTRIBUTE_GEO_COORDS = 'Coordinates';
 
 class TimePunchCardService {
 
@@ -65,21 +67,23 @@ class TimePunchCardService {
   createPunchCardAsync(
     userData
   ) {
-    var newCard = this._getNewPunchCard(
-      userData
-    );
-    return fetch(API_ENDPOINT + '/time_punch_cards', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newCard),
-    })
-    .then(checkStatus);
+    return this._getNewPunchCardAsync(userData)
+    .then(
+      (newCard) => {
+        return fetch(API_ENDPOINT + '/time_punch_cards', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newCard),
+        })
+        .then(checkStatus);
+      }
+    )
   }
 
-  _getNewPunchCard(
+  _getNewPunchCardAsync(
       userData
   ) {
       var now = new Date();
@@ -100,16 +104,29 @@ class TimePunchCardService {
         });
       }
 
-      var domainModel = {
-        'recordType': DEFAULT_CARD_TYPE,
-        'employee': employee,
-        'date': now,
-        'start': now,
-        'attributes': attributes,
-        'inProgress': true
-      };
+      let geoService = new GeoLocationService();
+      let promise = geoService.getCurrentPositionCoords()
+      .then(
+        (coords) => {
+          attributes.push({
+            'name': ATTRIBUTE_GEO_COORDS,
+            'value': coords
+          });
+        }
+      );
 
-      return domainModel;
+      return promise.then(() => {
+        var domainModel = {
+          'recordType': DEFAULT_CARD_TYPE,
+          'employee': employee,
+          'date': now,
+          'start': now,
+          'attributes': attributes,
+          'inProgress': true
+        };
+
+        return domainModel;
+      });
   }
 
 }

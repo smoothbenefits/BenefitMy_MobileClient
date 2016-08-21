@@ -33,6 +33,7 @@
       "id-length": 0,
     },
     "globals": {
-        "require": true
+        "require": true,
+        "Promise": true
     }
 }
