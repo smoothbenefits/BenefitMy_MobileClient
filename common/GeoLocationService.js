@@ -15,7 +15,7 @@ class GeoLocationService {
           (error) => {
             reject(error.message);
           },
-          {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+          {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000}
         );
       }
     );
