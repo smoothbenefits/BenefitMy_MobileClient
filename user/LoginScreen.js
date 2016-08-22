@@ -24,18 +24,37 @@ class LoginScreen extends React.Component {
     this.state = store.getState();
 
     this.unsubscribe = null;
+
+    // TODO: This is a cumbersome solution to workaround a race
+    //       condition issue with unsubscribing to the store.
+    //       It seems that after calling the unsubscriber, there
+    //       still could be execution land in the listener function
+    //       and causing the warning about setState on a component
+    //       not mounted.
+    //       The real solution seems to be using react-redux to do
+    //       the wiring instead of manually controlling the subscription
+    //       But as documented in the wiki, there is a problem with
+    //       Exponent's construct, and makes react-redux unusable.
+    //       We should revisit react-redux later on, now that Exponent
+    //       has newer releases, and we should see if the problem has
+    //       been fixed now.
+    this.unsubscribing = false;
   }
 
   componentDidMount() {
     if (!this.unsubscribe) {
+      this.unsubscribing = false;
       this.unsubscribe = store.subscribe(() => {
-        this.setState(store.getState()); // eslint-disable-line react/no-set-state
+        if (!this.unsubscribing) {
+          this.setState(store.getState()); // eslint-disable-line react/no-set-state
+        }
       });
     }
   }
 
   componentWillUnmount() {
     if (this.unsubscribe) {
+      this.unsubscribing = true;
       this.unsubscribe();
       this.unsubscribe = null;
     }

@@ -6,7 +6,7 @@ import React from 'react';
 
 import {Provider} from 'react-redux';
 import configureStore from './rootStore';
-import MainContainer from './MainContainer';
+import MainContainer from '../main/MainContainer';
 
 const store = configureStore();
 
