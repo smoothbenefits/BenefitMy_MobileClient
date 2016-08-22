@@ -5,12 +5,14 @@ import rootReducer from './rootReducer';
 let rootStore = null;
 
 export default function configureStore() {
-  rootStore = createStore(
-    rootReducer,
-    applyMiddleware(
-      thunkMiddleware // lets us dispatch() functions
-    )
-  );
+  if (!rootStore) {
+    rootStore = createStore(
+      rootReducer,
+      applyMiddleware(
+        thunkMiddleware // lets us dispatch() functions
+      )
+    );
+  }
   return rootStore;
 }
 

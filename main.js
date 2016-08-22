@@ -1,3 +1,4 @@
+import 'exponent';
 import {
   AppRegistry
 } from 'react-native';
