@@ -19,6 +19,18 @@ class TimePunchCardScreen extends React.Component {
   static route = {
     navigationBar: {
       renderTitle: () => <BrandedNavigationTitle />,
+
+      // Remark:
+      // OMG these are really gems to find...
+      // It seems that for whatever reason, the renderRight was
+      // set to something to rendering a blank area, and hence
+      // masking the right portion of the title bar...
+      // It took a couple hours of digging around the web and
+      // the ex-navigation code base to find these, and luckily
+      // set them to null seems to do the trick of removing the
+      // masking.
+      renderRight: null,
+      renderLeft: null
     },
   };
 

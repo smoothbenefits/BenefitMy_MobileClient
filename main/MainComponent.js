@@ -1,7 +1,6 @@
 import React, {PropTypes} from 'react';
 import * as Exponent from 'exponent';
 import {
-  Platform,
   StyleSheet,
   View,
 } from 'react-native';
@@ -51,8 +50,7 @@ MainComponent.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    marginTop: Platform.OS === 'ios' ? 0 : 24
+    backgroundColor: '#fff'
   },
 });
 
