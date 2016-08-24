@@ -1,10 +1,10 @@
 {
   // Name of the environment
-  environmentName: 'prod',
+  environmentName: 'dev',
 
   // URL to main web app base host
-  mainAppHostUrl: 'https://app.workbenefits.me',
+  mainAppHostUrl: 'http://staging.workbenefits.me',
 
   // URL to time tracking service base host
-  timeTrackingServiceHostUrl: 'http://timetracking.workbenefits.me'
+  timeTrackingServiceHostUrl: 'http://stage.timetracking.workbenefits.me'
 }
