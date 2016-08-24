@@ -4,8 +4,9 @@
 import _ from 'underscore';
 import {checkStatus} from '../common/apiUtils';
 import GeoLocationService from '../common/GeoLocationService';
+import AppSettingsService from '../common/AppSettingsService';
 
-const API_ENDPOINT = 'http://stage.timetracking.workbenefits.me/api/v1';
+const API_ENDPOINT = '/api/v1';
 
 const DEFAULT_CARD_TYPE = 'Work Time';
 const ATTRIBUTE_HOURLY_RATE = 'HourlyRate';
@@ -13,10 +14,15 @@ const ATTRIBUTE_GEO_COORDS = 'Coordinates';
 
 class TimePunchCardService {
 
+  constructor() {
+    let appSettingService = new AppSettingsService();
+    this.apiEndPointUrl = appSettingService.getTimeTrackingServiceHostUrl() + API_ENDPOINT;
+  }
+
   fetchMostRecentInProgessCardAsync(
     userData
   ) {
-    return fetch(API_ENDPOINT + '/employee/' + userData.user_id_env_encode + '/time_punch_cards' + '?inprogress=true', {
+    return fetch(this.apiEndPointUrl + '/employee/' + userData.user_id_env_encode + '/time_punch_cards' + '?inprogress=true', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -43,7 +49,7 @@ class TimePunchCardService {
       inProgress: null,
       end: new Date()
     });
-    return fetch(API_ENDPOINT + '/time_punch_cards/' + punchCard._id, {
+    return fetch(this.apiEndPointUrl + '/time_punch_cards/' + punchCard._id, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -70,7 +76,7 @@ class TimePunchCardService {
     return this._getNewPunchCardAsync(userData)
     .then(
       (newCard) => {
-        return fetch(API_ENDPOINT + '/time_punch_cards', {
+        return fetch(this.apiEndPointUrl + '/time_punch_cards', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',

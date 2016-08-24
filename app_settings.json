@@ -1,0 +1,10 @@
+{
+  // Name of the environment
+  environmentName: 'prod',
+
+  // URL to main web app base host
+  mainAppHostUrl: 'https://app.workbenefits.me',
+
+  // URL to time tracking service base host
+  timeTrackingServiceHostUrl: 'http://timetracking.workbenefits.me'
+}
