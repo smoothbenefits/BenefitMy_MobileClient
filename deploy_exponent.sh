@@ -29,12 +29,6 @@ exp start
 # Publish!
 exp publish
 
-# Stop the server
-exp stop
-
-# Log out
-exp logout
-
 if [ $? -ne 0 ]; then
     echo "Failed to push to Exponent Host"
     deployed=0
