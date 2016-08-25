@@ -164,7 +164,8 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     alignSelf: 'center',
-    color: '#ffffff'
+    color: '#ffffff',
+    padding: 3
   },
   warnText: {
     width: 230,
