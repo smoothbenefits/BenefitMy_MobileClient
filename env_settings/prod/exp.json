@@ -20,7 +20,7 @@
   description: "WorkBenefits.Me Mobile Client",
 
   // The url-name of the app: https://exp.host/@your-username/slug
-  slug: "dev-work-benefits-me",
+  slug: "work-benefits-me",
 
   // The target Exponent SDK version. This must line up with the react-native
   // version in package.json

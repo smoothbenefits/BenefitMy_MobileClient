@@ -3,13 +3,18 @@
  */
 
 import {checkStatus} from '../common/apiUtils';
+import AppSettingsService from '../common/AppSettingsService';
 
-const API_ENDPOINT = 'http://staging.workbenefits.me/api/v1/user';
+const API_ENDPOINT = '/api/v1/user';
 
 class UserService {
+  constructor() {
+    let appSettingService = new AppSettingsService();
+    this.apiEndPointUrl = appSettingService.getMainAppHostUrl() + API_ENDPOINT;
+  }
 
   getUserDataAsync(userEmail, password) {
-    return fetch(API_ENDPOINT + '/auth', {
+    return fetch(this.apiEndPointUrl + '/auth', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
