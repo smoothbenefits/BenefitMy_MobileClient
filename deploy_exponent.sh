@@ -21,7 +21,7 @@ deployed=1
 # for installation instructions
 
 # Login to Exponent
-exp login -u zhangsiy -p 1234567890
+exp login -u wb_mobile -p 1234567890
 
 # Start EXP server
 exp start
