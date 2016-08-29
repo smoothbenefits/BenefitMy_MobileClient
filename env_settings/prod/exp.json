@@ -37,13 +37,13 @@
   primaryColor: "#cccccc",
 
   // The icon image to use on your home screen.
-  iconUrl: "https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png",
+  iconUrl: "https://app.workbenefits.me/static/images/workbenefitsme-logo-white-background.png",
 
   // Push notification configuration: currently Android only.
   notification: {
     // The image to use for the notification icon
-    iconUrl: "https://s3.amazonaws.com/exp-us-standard/placeholder-push-icon.png",
-
+    iconUrl: "https://app.workbenefits.me/static/images/workbenefitsme-logo-white-background.png",
+    
     // The background color for the notification icon.
     color: "#000000"
   },
@@ -59,4 +59,10 @@
     // include with `require`.
     assetExts: ["ttf"]
   },
+  ios: {
+    bundleIdentifier: "workbenefitsme.mobile",
+  },
+  android: {
+    package: "workbenefitsme.mobile",
+  }
 }
