@@ -1,0 +1,58 @@
+{
+  "company_info": {
+    "company_name": "BenefitMy Inc.",
+    "company_id": 1,
+    "company_id_env_encode": "localhost_BMHT_1_b457df460695969e8960e3f1623a3ee7"
+  },
+  "user_info": {
+    "first_name": "Alibaba",
+    "last_name": "Test",
+    "user_id": 8,
+    "account_email": "testemployee@benefitmy.com",
+    "user_id_env_encode": "localhost_BMHT_8_c4fda37c3f71867b9620b1a31891886b",
+    "hourly_rate": 200
+  },
+  "project_list": [
+    {
+      "status": "Active",
+      "project_id": "576b0b6c819def0e0db866f1",
+      "name": "Test P 2"
+    },
+    {
+      "status": "Active",
+      "project_id": "576b12d64f535bf82fbd2e9d",
+      "name": "DDDDD2"
+    },
+    {
+      "status": "Active",
+      "project_id": "579979d9b954dda50bb4a716",
+      "name": "Test Proj 111"
+    }
+  ],
+  "app_features_info": {
+    "FSA": true,
+    "WorkTimeSheetNotification": false,
+    "DD": true,
+    "RangedTimeCard": true,
+    "I9": true,
+    "Commuter": true,
+    "BasicLife": true,
+    "WorkTimeSheet": false,
+    "ADAD": true,
+    "BenefitsForFullTimeOnly": false,
+    "STD": true,
+    "ProjectManagement": true,
+    "Timeoff": true,
+    "Deposit": true,
+    "LTD": true,
+    "HRA": true,
+    "MobileProjectManagement": true,
+    "DentalBenefit": true,
+    "ExtraBenefit": true,
+    "OptionalLife": true,
+    "VisionBenefit": true,
+    "Manager": true,
+    "W4": true,
+    "MedicalBenefit": true
+  }
+}

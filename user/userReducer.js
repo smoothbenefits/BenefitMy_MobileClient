@@ -6,8 +6,11 @@ export default function () {
       userEmail: null,
       password: null,
       isFetching: false,
-      userData: null,
-      lastLoginErrors: null
+      lastLoginErrors: null,
+
+      // For detailed content format of userData, see
+      // doc/sample_user_data.txt
+      userData: null
     };
 
     return (state = initialState, { type, payload }) => {

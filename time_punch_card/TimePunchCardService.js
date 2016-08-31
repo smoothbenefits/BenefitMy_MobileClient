@@ -22,7 +22,7 @@ class TimePunchCardService {
   fetchMostRecentInProgessCardAsync(
     userData
   ) {
-    return fetch(this.apiEndPointUrl + '/employee/' + userData.user_id_env_encode + '/time_punch_cards' + '?inprogress=true', {
+    return fetch(this.apiEndPointUrl + '/employee/' + userData.user_info.user_id_env_encode + '/time_punch_cards' + '?inprogress=true', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -95,18 +95,18 @@ class TimePunchCardService {
       var now = new Date();
 
       var employee = {
-          'personDescriptor': userData.user_id_env_encode,
-          'firstName': userData.first_name,
-          'lastName': userData.last_name,
-          'email': userData.account_email,
-          'companyDescriptor': userData.company_id_env_encode
+          'personDescriptor': userData.user_info.user_id_env_encode,
+          'firstName': userData.user_info.first_name,
+          'lastName': userData.user_info.last_name,
+          'email': userData.user_info.account_email,
+          'companyDescriptor': userData.company_info.company_id_env_encode
       };
 
       var attributes = [];
-      if (userData.hourly_rate) {
+      if (userData.user_info.hourly_rate) {
         attributes.push({
           'name': ATTRIBUTE_HOURLY_RATE,
-          'value': userData.hourly_rate
+          'value': userData.user_info.hourly_rate
         });
       }
 
