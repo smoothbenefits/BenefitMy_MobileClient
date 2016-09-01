@@ -102,7 +102,7 @@ class TimePunchCardScreen extends React.Component {
         handlePunch={this._handlePunch}
         handleReload={this._handleReload}
         lastPunchTime={this._lastPunchTime()}
-        projectList={this.state.userData.project_list}
+        projectList={this.state.user.userData.project_list}
         punchedIn={this._isCurrentlyPunchedIn()}
         requiresReload={this.state.timePunchCard.errors != null}
         showSpinner={this.state.timePunchCard.isFetching}

@@ -3,7 +3,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
-  View
+  View,
+  Picker
 } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -30,6 +31,20 @@ class TimePunchCardScreenComponent extends React.Component {
     } else {
       return (
         <View style={styles.centerAlignContainer}>
+          <Picker
+            style={{width:300}}
+          >
+            {
+              this.props.projectList.map(
+                (project, i) => {
+                  return (<Picker.Item
+                           key={i}
+                           label={project.name}
+                           value={project.project_id}
+                          />);
+                })
+            }
+          </Picker>
           <TouchableOpacity
             onPress={this.props.handlePunch}
             style={styles.buttonPunch}
@@ -62,7 +77,8 @@ TimePunchCardScreenComponent.propTypes = {
   lastPunchTime: PropTypes.string,
   showSpinner: PropTypes.bool.isRequired,
   requiresReload: PropTypes.bool.isRequired,
-  handleReload: PropTypes.func.isRequired
+  handleReload: PropTypes.func.isRequired,
+  projectList: PropTypes.array
 };
 
 const styles = StyleSheet.create({
