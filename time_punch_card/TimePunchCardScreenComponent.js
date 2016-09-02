@@ -4,14 +4,19 @@ import {
   TouchableOpacity,
   Text,
   View,
-  Picker
+  TextInput
 } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
+import ModalPicker from 'react-native-modal-picker';
 
 class TimePunchCardScreenComponent extends React.Component {
 
   constructor(props, context) {
     super(props, context);
+
+    this.state = {
+      projectSelection: null
+    };
   }
 
   _renderMainControl() {
@@ -31,22 +36,9 @@ class TimePunchCardScreenComponent extends React.Component {
     } else {
       return (
         <View style={styles.centerAlignContainer}>
-          <Picker
-            style={{width:300}}
-          >
-            {
-              this.props.projectList.map(
-                (project, i) => {
-                  return (<Picker.Item
-                           key={i}
-                           label={project.name}
-                           value={project.project_id}
-                          />);
-                })
-            }
-          </Picker>
+          {this._renderProjectControl()}
           <TouchableOpacity
-            onPress={this.props.handlePunch}
+            onPress={() => this.props.handlePunch(this.state.projectSelection)}
             style={styles.buttonPunch}
             underlayColor={'#328FE6'}
           >
@@ -56,6 +48,34 @@ class TimePunchCardScreenComponent extends React.Component {
           <Text style={styles.message}>{this.props.lastPunchTime}</Text>
         </View>
       )
+    }
+  }
+
+  _renderProjectControl() {
+    if (this.props.enableProjectSelection) {
+      let projectOptions = this.props.projectList.map(
+                              (project, i) => {
+                                return {
+                                  key: i,
+                                  label: project.name,
+                                  value: project.project_id,
+                                  project: project
+                                };
+                            });
+      return (
+        <ModalPicker
+          data={projectOptions}
+          onChange={(option) => this.setState({projectSelection:option.project})}
+          style={styles.dropdown}
+        >
+          <TextInput
+            editable={false}
+            placeholder="Select a Project"
+            style={styles.input}
+            value={this.state.projectSelection ? this.state.projectSelection.name : null}
+          />
+        </ModalPicker>
+      );
     }
   }
 
@@ -78,7 +98,8 @@ TimePunchCardScreenComponent.propTypes = {
   showSpinner: PropTypes.bool.isRequired,
   requiresReload: PropTypes.bool.isRequired,
   handleReload: PropTypes.func.isRequired,
-  projectList: PropTypes.array
+  projectList: PropTypes.array,
+  enableProjectSelection: PropTypes.bool.isRequired
 };
 
 const styles = StyleSheet.create({
@@ -137,7 +158,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
     color: '#555555'
-  }
+  },
+  dropdown: {
+    marginBottom: 10
+  },
 });
 
 export default TimePunchCardScreenComponent;

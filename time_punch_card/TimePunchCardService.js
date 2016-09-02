@@ -10,6 +10,7 @@ const API_ENDPOINT = '/api/v1';
 
 const DEFAULT_CARD_TYPE = 'Work Time';
 const ATTRIBUTE_HOURLY_RATE = 'HourlyRate';
+const ATTRIBUTE_PROJECT = 'Project';
 const ATTRIBUTE_GEO_COORDS = 'Coordinates';
 
 class TimePunchCardService {
@@ -71,9 +72,10 @@ class TimePunchCardService {
   }
 
   createPunchCardAsync(
-    userData
+    userData,
+    project
   ) {
-    return this._getNewPunchCardAsync(userData)
+    return this._getNewPunchCardAsync(userData, project)
     .then(
       (newCard) => {
         return fetch(this.apiEndPointUrl + '/time_punch_cards', {
@@ -90,7 +92,8 @@ class TimePunchCardService {
   }
 
   _getNewPunchCardAsync(
-      userData
+      userData,
+      project
   ) {
       var now = new Date();
 
@@ -107,6 +110,13 @@ class TimePunchCardService {
         attributes.push({
           'name': ATTRIBUTE_HOURLY_RATE,
           'value': userData.user_info.hourly_rate
+        });
+      }
+
+      if (project) {
+        attributes.push({
+          'name': ATTRIBUTE_PROJECT,
+          'value': project.project_id
         });
       }
 

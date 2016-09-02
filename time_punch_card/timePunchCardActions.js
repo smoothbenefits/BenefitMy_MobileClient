@@ -46,13 +46,15 @@ export function loadCard(
 }
 
 export function cardPunchIn(
-  userData
+  userData,
+  project
 ) {
   return dispatch => {
     dispatch(punchIn.request());
     var service = new TimePunchCardService();
     return service.createPunchCardAsync(
-      userData
+      userData,
+      project
     ).then(
       (createdCard) => {
         dispatch(punchIn.success(createdCard));
