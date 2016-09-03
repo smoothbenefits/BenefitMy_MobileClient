@@ -86,7 +86,8 @@ export function cardPunchOut(
       let cardToPunchOut = getState().timePunchCard.currentCard;
       if (!cardToPunchOut) {
         // If no in-progress card is found, we don't have anything
-        // to do here.a;
+        // to do here;
+        return;
       }
 
       // Now do punch out

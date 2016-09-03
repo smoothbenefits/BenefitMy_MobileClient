@@ -3,8 +3,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
-  View,
-  TextInput
+  View
 } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import ModalPicker from 'react-native-modal-picker';
@@ -68,12 +67,17 @@ class TimePunchCardScreenComponent extends React.Component {
           onChange={(option) => this.setState({projectSelection:option.project})}
           style={styles.dropdown}
         >
-          <TextInput
-            editable={false}
-            placeholder="Select a Project"
-            style={styles.input}
-            value={this.state.projectSelection ? this.state.projectSelection.name : null}
-          />
+          <TouchableOpacity
+            disabled
+            style={styles.dropdownSelection}
+          >
+            <Text
+              numberOfLines={1}
+              style={styles.dropdownSelectionText}
+            >
+              {this.state.projectSelection ? this.state.projectSelection.name : 'Select a Project..'}
+            </Text>
+          </TouchableOpacity>
         </ModalPicker>
       );
     }
@@ -162,6 +166,35 @@ const styles = StyleSheet.create({
   dropdown: {
     marginBottom: 10
   },
+  dropdownSelection: {
+    width: 250,
+    padding: 10,
+    height: 50,
+    borderColor: '#32C5E6',
+    borderWidth: 1,
+    borderRadius: 4,
+    alignSelf: 'center',
+    backgroundColor: '#ffffff'
+  },
+  dropdownSelectionText: {
+    width: 230,
+    flex: 1,
+    alignSelf: 'center',
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#777777'
+  },
+  buttonLogin: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: '#328FE6',
+    padding: 10,
+    marginTop: 10,
+    backgroundColor: '#32c5e6'
+  }
 });
 
 export default TimePunchCardScreenComponent;
