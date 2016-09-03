@@ -6,8 +6,11 @@ export default function () {
       userEmail: null,
       password: null,
       isFetching: false,
-      userData: null,
-      lastLoginErrors: null
+      lastLoginErrors: null,
+
+      // For detailed content format of userData, see
+      // doc/sample_user_data.txt
+      userData: null
     };
 
     return (state = initialState, { type, payload }) => {
@@ -60,6 +63,25 @@ export default function () {
               userEmail: payload.userEmail,
               password: payload.password,
               lastLoginErrors: null
+            };
+
+          // User Data Refresh
+          case userActionTypes.userDataRefresh.REQUEST:
+            return {
+                ...state,
+                isFetching: true
+            };
+          case userActionTypes.userDataRefresh.SUCCESS:
+            return {
+              ...state,
+              userData: payload,
+              isFetching: false
+            };
+          case userActionTypes.userDataRefresh.FAILURE:
+            return {
+                ...state,
+                isFetching: false,
+                lastLoginErrors: payload
             };
 
           default:

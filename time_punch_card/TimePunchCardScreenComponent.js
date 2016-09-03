@@ -6,11 +6,16 @@ import {
   View
 } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
+import ModalPicker from 'react-native-modal-picker';
 
 class TimePunchCardScreenComponent extends React.Component {
 
   constructor(props, context) {
     super(props, context);
+
+    this.state = {
+      projectSelection: null
+    };
   }
 
   _renderMainControl() {
@@ -30,8 +35,9 @@ class TimePunchCardScreenComponent extends React.Component {
     } else {
       return (
         <View style={styles.centerAlignContainer}>
+          {this._renderProjectControl()}
           <TouchableOpacity
-            onPress={this.props.handlePunch}
+            onPress={() => this.props.handlePunch(this.state.projectSelection)}
             style={styles.buttonPunch}
             underlayColor={'#328FE6'}
           >
@@ -41,6 +47,39 @@ class TimePunchCardScreenComponent extends React.Component {
           <Text style={styles.message}>{this.props.lastPunchTime}</Text>
         </View>
       )
+    }
+  }
+
+  _renderProjectControl() {
+    if (this.props.enableProjectSelection) {
+      let projectOptions = this.props.projectList.map(
+                              (project, i) => {
+                                return {
+                                  key: i,
+                                  label: project.name,
+                                  value: project.project_id,
+                                  project: project
+                                };
+                            });
+      return (
+        <ModalPicker
+          data={projectOptions}
+          onChange={(option) => this.setState({projectSelection:option.project})}
+          style={styles.dropdown}
+        >
+          <TouchableOpacity
+            disabled
+            style={styles.dropdownSelection}
+          >
+            <Text
+              numberOfLines={1}
+              style={styles.dropdownSelectionText}
+            >
+              {this.state.projectSelection ? this.state.projectSelection.name : 'Select a Project..'}
+            </Text>
+          </TouchableOpacity>
+        </ModalPicker>
+      );
     }
   }
 
@@ -62,7 +101,9 @@ TimePunchCardScreenComponent.propTypes = {
   lastPunchTime: PropTypes.string,
   showSpinner: PropTypes.bool.isRequired,
   requiresReload: PropTypes.bool.isRequired,
-  handleReload: PropTypes.func.isRequired
+  handleReload: PropTypes.func.isRequired,
+  projectList: PropTypes.array,
+  enableProjectSelection: PropTypes.bool.isRequired
 };
 
 const styles = StyleSheet.create({
@@ -121,6 +162,38 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
     color: '#555555'
+  },
+  dropdown: {
+    marginBottom: 10
+  },
+  dropdownSelection: {
+    width: 250,
+    padding: 10,
+    height: 50,
+    borderColor: '#32C5E6',
+    borderWidth: 1,
+    borderRadius: 4,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ffffff'
+  },
+  dropdownSelectionText: {
+    width: 230,
+    alignSelf: 'center',
+    textAlign: 'left',
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#777777'
+  },
+  buttonLogin: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: '#328FE6',
+    padding: 10,
+    marginTop: 10,
+    backgroundColor: '#32c5e6'
   }
 });
 

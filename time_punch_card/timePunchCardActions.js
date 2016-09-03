@@ -1,5 +1,6 @@
 import {timePunchCardActionTypes} from './timePunchCardActionTypes';
 import TimePunchCardService from 'TimePunchCardService';
+import {refreshUserData} from '../user/userActions';
 
 export const load = {
     request: () => { return { type: timePunchCardActionTypes.load.REQUEST }; },
@@ -46,13 +47,15 @@ export function loadCard(
 }
 
 export function cardPunchIn(
-  userData
+  userData,
+  project
 ) {
   return dispatch => {
     dispatch(punchIn.request());
     var service = new TimePunchCardService();
     return service.createPunchCardAsync(
-      userData
+      userData,
+      project
     ).then(
       (createdCard) => {
         dispatch(punchIn.success(createdCard));
@@ -84,7 +87,8 @@ export function cardPunchOut(
       let cardToPunchOut = getState().timePunchCard.currentCard;
       if (!cardToPunchOut) {
         // If no in-progress card is found, we don't have anything
-        // to do here.a;
+        // to do here;
+        return;
       }
 
       // Now do punch out
@@ -118,5 +122,10 @@ export function cardPunchOut(
         errors: errors
       }));
     });
+
+    // For now, upon checking out, also dispatch the action to
+    // refresh user data to prepare for the next check in
+    let user = getState().user;
+    dispatch(refreshUserData(user.userEmail, user.password));
   };
 }

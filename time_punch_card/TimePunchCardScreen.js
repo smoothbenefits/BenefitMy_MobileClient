@@ -12,6 +12,7 @@ import {getStore} from '../app/rootStore';
 import {loadCard, cardPunchIn, cardPunchOut} from './timePunchCardActions';
 import TimePunchCardScreenComponent from './TimePunchCardScreenComponent';
 import {DateFormatConstants} from '../common/constants';
+import AppFeatureService, {appFeatures} from '../app/AppFeatureService';
 
 const store = getStore();
 
@@ -67,13 +68,14 @@ class TimePunchCardScreen extends React.Component {
     ));
   }
 
-  _handlePunch = () => {
-    this._isCurrentlyPunchedIn() ? this._punchOut() : this._punchIn();
+  _handlePunch = (project) => {
+    this._isCurrentlyPunchedIn() ? this._punchOut() : this._punchIn(project);
   }
 
-  _punchIn = () => {
+  _punchIn = (project) => {
     store.dispatch(cardPunchIn(
-      this.state.user.userData
+      this.state.user.userData,
+      project
     ));
   }
 
@@ -96,12 +98,35 @@ class TimePunchCardScreen extends React.Component {
     return null;
   }
 
+  _enableProjectSelection = () => {
+    if (this._isCurrentlyPunchedIn()) {
+      return false;
+    }
+
+    // Now check the feature setup
+    let featureService = new AppFeatureService();
+    if (!featureService.isFeatureEnabled(appFeatures.ProjectManagement)
+        || !featureService.isFeatureEnabled(appFeatures.MobileProjectManagement)) {
+      return false;
+    }
+
+    // Now check that project list is not empty
+    if (!this.state.user.userData.project_list
+        || this.state.user.userData.project_list.length <= 0) {
+      return false;
+    }
+
+    return true;
+  }
+
   render() {
     return (
       <TimePunchCardScreenComponent
+        enableProjectSelection={this._enableProjectSelection()}
         handlePunch={this._handlePunch}
         handleReload={this._handleReload}
         lastPunchTime={this._lastPunchTime()}
+        projectList={this.state.user.userData.project_list}
         punchedIn={this._isCurrentlyPunchedIn()}
         requiresReload={this.state.timePunchCard.errors != null}
         showSpinner={this.state.timePunchCard.isFetching}
