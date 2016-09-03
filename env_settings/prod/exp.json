@@ -28,7 +28,7 @@
 
   // Your app version -- for your own use. This is available to your app at
   // runtime, so you can use it for reporting and such.
-  version: "1.0.0",
+  version: "2.0.0",
 
   // Allowed orientations: default is locked to portrait.
   orientation: "portrait",
@@ -43,7 +43,7 @@
   notification: {
     // The image to use for the notification icon
     iconUrl: "https://app.workbenefits.me/static/images/workbenefitsme-logo-white-background.png",
-    
+
     // The background color for the notification icon.
     color: "#000000"
   },
@@ -64,5 +64,6 @@
   },
   android: {
     package: "workbenefitsme.mobile",
+    versionCode: "2",
   }
 }

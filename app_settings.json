@@ -3,7 +3,7 @@
   environmentName: 'dev',
 
   // URL to main web app base host
-  mainAppHostUrl: 'http://98b94603.ngrok.io',
+  mainAppHostUrl: 'http://staging.workbenefits.me',
 
   // URL to time tracking service base host
   timeTrackingServiceHostUrl: 'http://stage.timetracking.workbenefits.me'
