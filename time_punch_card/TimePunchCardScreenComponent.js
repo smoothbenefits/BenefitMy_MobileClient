@@ -174,13 +174,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     alignSelf: 'center',
+    justifyContent: 'center',
     backgroundColor: '#ffffff'
   },
   dropdownSelectionText: {
     width: 230,
-    flex: 1,
     alignSelf: 'center',
-    textAlign: 'center',
+    textAlign: 'left',
     fontSize: 16,
     fontWeight: '600',
     color: '#777777'

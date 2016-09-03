@@ -1,5 +1,6 @@
 import {timePunchCardActionTypes} from './timePunchCardActionTypes';
 import TimePunchCardService from 'TimePunchCardService';
+import {refreshUserData} from '../user/userActions';
 
 export const load = {
     request: () => { return { type: timePunchCardActionTypes.load.REQUEST }; },
@@ -121,5 +122,10 @@ export function cardPunchOut(
         errors: errors
       }));
     });
+
+    // For now, upon checking out, also dispatch the action to
+    // refresh user data to prepare for the next check in
+    let user = getState().user;
+    dispatch(refreshUserData(user.userEmail, user.password));
   };
 }

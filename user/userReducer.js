@@ -65,6 +65,25 @@ export default function () {
               lastLoginErrors: null
             };
 
+          // User Data Refresh
+          case userActionTypes.userDataRefresh.REQUEST:
+            return {
+                ...state,
+                isFetching: true
+            };
+          case userActionTypes.userDataRefresh.SUCCESS:
+            return {
+              ...state,
+              userData: payload,
+              isFetching: false
+            };
+          case userActionTypes.userDataRefresh.FAILURE:
+            return {
+                ...state,
+                isFetching: false,
+                lastLoginErrors: payload
+            };
+
           default:
             return state;
         }
