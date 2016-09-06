@@ -6,5 +6,5 @@
   mainAppHostUrl: 'https://app.workbenefits.me',
 
   // URL to time tracking service base host
-  timeTrackingServiceHostUrl: 'https://timetracking.workbenefits.me'
+  timeTrackingServiceHostUrl: 'http://timetracking.workbenefits.me'
 }
