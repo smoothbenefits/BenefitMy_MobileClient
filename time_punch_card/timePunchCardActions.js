@@ -50,25 +50,48 @@ export function cardPunchIn(
   userData,
   project
 ) {
-  return dispatch => {
-    dispatch(punchIn.request());
-    var service = new TimePunchCardService();
-    return service.createPunchCardAsync(
-      userData,
-      project
-    ).then(
-      (createdCard) => {
-        dispatch(punchIn.success(createdCard));
+  return (dispatch, getState) => {
+    // First dispatch the action to reload the user card
+    // This is to ensure that we are looking at the latest
+    // card to operate on, and avoid possible inconsistency
+    // resulted from receiving inputs from multiple sources
+    // E.g. mobile and web, or even multiple devices
+    dispatch(loadCard(userData)).then(() => {
+      let cardInProgress = getState().timePunchCard.currentCard;
+      if (cardInProgress) {
+        // If there is already a card in progress, alert and do nothing
+        alert('Detected a card already checked in! The card has been loaded into the view.');
+        return;
       }
-    )
+      dispatch(punchIn.request());
+      var service = new TimePunchCardService();
+      return service.createPunchCardAsync(
+        userData,
+        project
+      ).then(
+        (createdCard) => {
+          dispatch(punchIn.success(createdCard));
+        }
+      )
+      .catch((errors) => {
+        // [TODO]: This might not be the right place to alert,
+        //         revisit this later on for cleanup
+        let message = 'Failed to Check-in!!';
+        if (errors.doNotMaskMessage && errors.message) {
+          message = errors.message;
+        }
+        alert(message);
+
+        dispatch(punchIn.failure({
+          message: 'Failed to create punch card!',
+          errors: errors
+        }));
+      });
+    })
     .catch((errors) => {
       // [TODO]: This might not be the right place to alert,
       //         revisit this later on for cleanup
-      let message = 'Failed to Check-in!!';
-      if (errors.doNotMaskMessage && errors.message) {
-        message = errors.message;
-      }
-      alert(message);
+      alert('Failed to Check-in!');
 
       dispatch(punchIn.failure({
         message: 'Failed to create punch card!',
@@ -90,8 +113,8 @@ export function cardPunchOut(
     dispatch(loadCard(userData)).then(() => {
       let cardToPunchOut = getState().timePunchCard.currentCard;
       if (!cardToPunchOut) {
-        // If no in-progress card is found, we don't have anything
-        // to do here;
+        // If no in-progress card is found, alert and do nothing
+        alert('The card has already been checked out, maybe from another device.');
         return;
       }
 
