@@ -91,10 +91,10 @@ class TimePunchCardService {
     )
   }
 
-  _getNewPunchCardAsync(
+  _getNewPunchCardAsync = async (
       userData,
       project
-  ) {
+  ) => {
       var now = new Date();
 
       var employee = {
@@ -121,28 +121,24 @@ class TimePunchCardService {
       }
 
       let geoService = new GeoLocationService();
-      let promise = geoService.getCurrentPositionCoords()
-      .then(
-        (coords) => {
-          attributes.push({
-            'name': ATTRIBUTE_GEO_COORDS,
-            'value': coords
-          });
-        }
-      );
+      let coords = await geoService.getCurrentPositionCoordsAsync();
+      if (coords) {
+        attributes.push({
+          'name': ATTRIBUTE_GEO_COORDS,
+          'value': coords
+        });
+      }
 
-      return promise.then(() => {
-        var domainModel = {
-          'recordType': DEFAULT_CARD_TYPE,
-          'employee': employee,
-          'date': now,
-          'start': now,
-          'attributes': attributes,
-          'inProgress': true
-        };
+      var domainModel = {
+        'recordType': DEFAULT_CARD_TYPE,
+        'employee': employee,
+        'date': now,
+        'start': now,
+        'attributes': attributes,
+        'inProgress': true
+      };
 
-        return domainModel;
-      });
+      return domainModel;
   }
 
 }

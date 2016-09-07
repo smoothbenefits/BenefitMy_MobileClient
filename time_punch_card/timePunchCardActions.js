@@ -64,7 +64,11 @@ export function cardPunchIn(
     .catch((errors) => {
       // [TODO]: This might not be the right place to alert,
       //         revisit this later on for cleanup
-      alert('Failed to Check-in!');
+      let message = 'Failed to Check-in!!';
+      if (errors.doNotMaskMessage && errors.message) {
+        message = errors.message;
+      }
+      alert(message);
 
       dispatch(punchIn.failure({
         message: 'Failed to create punch card!',

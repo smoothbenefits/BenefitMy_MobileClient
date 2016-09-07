@@ -2,7 +2,8 @@
  * @providesModule GeoLocationService
  */
 class GeoLocationService {
-  getCurrentPositionCoords() {
+
+  getCurrentPositionCoordsAsync() {
     let promise = new Promise(
       function(resolve, reject) {
         navigator.geolocation.getCurrentPosition(
@@ -13,14 +14,18 @@ class GeoLocationService {
             });
           },
           (error) => {
-            reject(error.message);
+            let err = new Error('The app requires location/GPS service to work properly. Please ensure it is turned on.');
+            err.doNotMaskMessage = true;
+            reject(err);
           },
           {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000}
         );
       }
     );
+
     return promise;
   }
+
 }
 
 export default GeoLocationService;
