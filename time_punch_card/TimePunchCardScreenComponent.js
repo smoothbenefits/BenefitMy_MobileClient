@@ -35,6 +35,7 @@ class TimePunchCardScreenComponent extends React.Component {
     } else {
       return (
         <View style={styles.centerAlignContainer}>
+          <Text style={styles.headerText}>{this.props.companyName}</Text>
           {this._renderProjectControl()}
           <TouchableOpacity
             onPress={() => this.props.handlePunch(this.state.projectSelection)}
@@ -103,7 +104,8 @@ TimePunchCardScreenComponent.propTypes = {
   requiresReload: PropTypes.bool.isRequired,
   handleReload: PropTypes.func.isRequired,
   projectList: PropTypes.array,
-  enableProjectSelection: PropTypes.bool.isRequired
+  enableProjectSelection: PropTypes.bool.isRequired,
+  companyName: PropTypes.string.isRequired
 };
 
 const styles = StyleSheet.create({
@@ -153,6 +155,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
     color: '#ffffff'
+  },
+  headerText: {
+    width: 230,
+    alignSelf: 'center',
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#555555',
+    textDecorationLine: 'underline',
+    textShadowColor: '#ffffff',
+    textShadowOffset: {width: 1, height: 1},
+    textShadowRadius: 1,
+    marginBottom: 40
   },
   message: {
     marginTop: 10,
