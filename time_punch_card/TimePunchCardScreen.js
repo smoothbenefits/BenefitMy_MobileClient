@@ -122,6 +122,7 @@ class TimePunchCardScreen extends React.Component {
   render() {
     return (
       <TimePunchCardScreenComponent
+        companyName={this.state.user.userData.company_info.company_name}
         enableProjectSelection={this._enableProjectSelection()}
         handlePunch={this._handlePunch}
         handleReload={this._handleReload}
