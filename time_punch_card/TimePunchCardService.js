@@ -20,37 +20,36 @@ class TimePunchCardService {
     this.apiEndPointUrl = appSettingService.getTimeTrackingServiceHostUrl() + API_ENDPOINT;
   }
 
-  fetchMostRecentInProgessCardAsync(
+  async fetchMostRecentInProgessCardAsync(
     userData
   ) {
-    return fetch(this.apiEndPointUrl + '/employee/' + userData.user_info.user_id_env_encode + '/time_punch_cards' + '?inprogress=true', {
+    let punchCards = await fetch(this.apiEndPointUrl + '/employee/' + userData.user_info.user_id_env_encode + '/time_punch_cards' + '?inprogress=true', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       }
     })
-    .then(checkStatus)
-    .then((punchCards) => {
-      // Hopefully we only have at most 1 card in-progress at any time
-      // But this is not ensured at data layer or server side, and for
-      // robustness, we tolerate it by getting the latest one.
-      if (punchCards && punchCards.length > 0) {
-        let sortedCards = _.sortBy(punchCards, 'createdTimestamp').reverse();
-        return sortedCards[0];
-      }
-      return null;
-    });
+    .then(checkStatus);
+
+    // Hopefully we only have at most 1 card in-progress at any time
+    // But this is not ensured at data layer or server side, and for
+    // robustness, we tolerate it by getting the latest one.
+    if (punchCards && punchCards.length > 0) {
+      let sortedCards = _.sortBy(punchCards, 'createdTimestamp').reverse();
+      return sortedCards[0];
+    }
+    return null;
   }
 
-  markPunchCardComplete(
+  async markPunchCardComplete(
     punchCard
   ) {
     var cardToUpdate = _.extend(punchCard, {
       inProgress: null,
       end: new Date()
     });
-    return fetch(this.apiEndPointUrl + '/time_punch_cards/' + punchCard._id, {
+    let punchCards = await fetch(this.apiEndPointUrl + '/time_punch_cards/' + punchCard._id, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -58,17 +57,16 @@ class TimePunchCardService {
       },
       body: JSON.stringify(cardToUpdate),
     })
-    .then(checkStatus)
-    .then((punchCards) => {
-      // Due to that punch out time could be spaning over calendar days
-      // the server side will return a collection of cards containing
-      // 1 or more cards. Here we grab the last one
-      if (punchCards && punchCards.length > 0) {
-        let sortedCards = _.sortBy(punchCards, 'start').reverse();
-        return sortedCards[0]
-      }
-      return null;
-    });
+    .then(checkStatus);
+
+    // Due to that punch out time could be spaning over calendar days
+    // the server side will return a collection of cards containing
+    // 1 or more cards. Here we grab the last one
+    if (punchCards && punchCards.length > 0) {
+      let sortedCards = _.sortBy(punchCards, 'start').reverse();
+      return sortedCards[0]
+    }
+    return null;
   }
 
   async createPunchCardAsync(
@@ -77,7 +75,7 @@ class TimePunchCardService {
   ) {
     let newCard = await this._getNewPunchCardAsync(userData, project);
 
-    return fetch(this.apiEndPointUrl + '/time_punch_cards', {
+    let response = await fetch(this.apiEndPointUrl + '/time_punch_cards', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -86,6 +84,8 @@ class TimePunchCardService {
       body: JSON.stringify(newCard),
     })
     .then(checkStatus);
+
+    return response;
   }
 
   async _getNewPunchCardAsync(

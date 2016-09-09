@@ -13,8 +13,8 @@ class UserService {
     this.apiEndPointUrl = appSettingService.getMainAppHostUrl() + API_ENDPOINT;
   }
 
-  getUserDataAsync(userEmail, password) {
-    return fetch(this.apiEndPointUrl + '/auth', {
+  async getUserDataAsync(userEmail, password) {
+    let response = await fetch(this.apiEndPointUrl + '/auth', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -26,8 +26,8 @@ class UserService {
       })
     })
     .then(checkStatus);
+    return response;
   }
-
 }
 
 export default UserService;
