@@ -56,12 +56,14 @@ class TimePunchCardScreenComponent extends React.Component {
       let projectOptions = this.props.projectList.map(
                               (project, i) => {
                                 return {
-                                  key: i,
+                                  key: i+1,
                                   label: project.name,
                                   value: project.project_id,
                                   project: project
                                 };
                             });
+      // Add a title for the dropdown
+      projectOptions.unshift({ key: 0, section: true, label: 'Projects' });
       return (
         <ModalPicker
           data={projectOptions}
