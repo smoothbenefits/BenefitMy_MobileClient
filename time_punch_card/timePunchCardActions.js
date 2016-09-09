@@ -23,17 +23,13 @@ export const punchOut = {
 export function loadCard(
   userData
 ) {
-  return dispatch => {
+  return async dispatch => {
     dispatch(load.request());
-    var service = new TimePunchCardService();
-    return service.fetchMostRecentInProgessCardAsync(
-      userData
-    ).then(
-      (punchCard) => {
-        dispatch(load.success(punchCard));
-      }
-    )
-    .catch((errors) => {
+    try {
+      var service = new TimePunchCardService();
+      let punchCard = await service.fetchMostRecentInProgessCardAsync(userData);
+      dispatch(load.success(punchCard));
+    } catch(errors) {
       // [TODO]: This might not be the right place to alert,
       //         revisit this later on for cleanup
       alert('Failed to load punch card data!');
@@ -42,7 +38,7 @@ export function loadCard(
         message: 'Failed to load punch card!',
         errors: errors
       }));
-    });
+    }
   };
 }
 
@@ -50,13 +46,14 @@ export function cardPunchIn(
   userData,
   project
 ) {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     // First dispatch the action to reload the user card
     // This is to ensure that we are looking at the latest
     // card to operate on, and avoid possible inconsistency
     // resulted from receiving inputs from multiple sources
     // E.g. mobile and web, or even multiple devices
-    dispatch(loadCard(userData)).then(() => {
+    try {
+      await dispatch(loadCard(userData));
       let cardInProgress = getState().timePunchCard.currentCard;
       if (cardInProgress) {
         // If there is already a card in progress, alert and do nothing
@@ -65,81 +62,48 @@ export function cardPunchIn(
       }
       dispatch(punchIn.request());
       var service = new TimePunchCardService();
-      return service.createPunchCardAsync(
-        userData,
-        project
-      ).then(
-        (createdCard) => {
-          dispatch(punchIn.success(createdCard));
-        }
-      )
-      .catch((errors) => {
-        // [TODO]: This might not be the right place to alert,
-        //         revisit this later on for cleanup
-        let message = 'Failed to Check-in!!';
-        if (errors.doNotMaskMessage && errors.message) {
-          message = errors.message;
-        }
-        alert(message);
-
-        dispatch(punchIn.failure({
-          message: 'Failed to create punch card!',
-          errors: errors
-        }));
-      });
-    })
-    .catch((errors) => {
+      let createdCard = await service.createPunchCardAsync(userData,project);
+      dispatch(punchIn.success(createdCard));
+    } catch(errors) {
       // [TODO]: This might not be the right place to alert,
       //         revisit this later on for cleanup
-      alert('Failed to Check-in!');
+      let message = 'Failed to Check-in!!';
+      if (errors.doNotMaskMessage && errors.message) {
+        message = errors.message;
+      }
+      alert(message);
 
       dispatch(punchIn.failure({
         message: 'Failed to create punch card!',
         errors: errors
       }));
-    });
+    }
   };
 }
 
 export function cardPunchOut(
   userData
 ) {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     // First dispatch the action to reload the user card
     // This is to ensure that we are looking at the latest
     // card to operate on, and avoid possible inconsistency
     // resulted from receiving inputs from multiple sources
     // E.g. mobile and web, or even multiple devices
-    dispatch(loadCard(userData)).then(() => {
+    try {
+      await dispatch(loadCard(userData));
       let cardToPunchOut = getState().timePunchCard.currentCard;
       if (!cardToPunchOut) {
         // If no in-progress card is found, alert and do nothing
         alert('The card has already been checked out, maybe from another device.');
         return;
       }
-
       // Now do punch out
       dispatch(punchOut.request());
       var service = new TimePunchCardService();
-      return service.markPunchCardComplete(
-        cardToPunchOut
-      ).then(
-        (punchCard) => {
-          dispatch(punchOut.success(punchCard));
-        }
-      )
-      .catch((errors) => {
-        // [TODO]: This might not be the right place to alert,
-        //         revisit this later on for cleanup
-        alert('Failed to Check-out!');
-
-        dispatch(punchOut.failure({
-          message: 'Failed to update punch card!',
-          errors: errors
-        }));
-      });
-    })
-    .catch((errors) => {
+      let punchCard = await service.markPunchCardComplete(cardToPunchOut);
+      dispatch(punchOut.success(punchCard));
+    } catch(errors) {
       // [TODO]: This might not be the right place to alert,
       //         revisit this later on for cleanup
       alert('Failed to Check-out!');
@@ -148,7 +112,7 @@ export function cardPunchOut(
         message: 'Failed to update punch card!',
         errors: errors
       }));
-    });
+    }
 
     // For now, upon checking out, also dispatch the action to
     // refresh user data to prepare for the next check in

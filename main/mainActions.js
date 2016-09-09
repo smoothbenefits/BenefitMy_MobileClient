@@ -8,20 +8,17 @@ export const loadAssets = {
 };
 
 export function loadAndCacheAssets() {
-  return dispatch => {
+  return async dispatch => {
     dispatch(loadAssets.request());
-    let service = new MainService();
-    return service.loadAndCacheAssetsAsync(
-    ).then(
-      () => {
-        dispatch(loadAssets.success());
-      }
-    )
-    .catch((errors) => {
+    try {
+      let service = new MainService();
+      await service.loadAndCacheAssetsAsync();
+      dispatch(loadAssets.success());
+    } catch(errors) {
       dispatch(loadAssets.failure({
         message: 'Failed to load needed assets!',
         errors: errors
       }));
-    });
+    }
   };
 }

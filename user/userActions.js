@@ -24,23 +24,18 @@ export const userDataRefresh = {
 };
 
 export function userLogIn(userEmail, password) {
-  return dispatch => {
+  return async dispatch => {
     dispatch(logIn.request());
-    var service = new UserService();
-    return service.getUserDataAsync(userEmail, password)
-      .then(
-        (userData) => {
-          dispatch(logIn.success(userData));
-        }
-      )
-      .catch(
-        (errors) => {
-          dispatch(logIn.failure({
-            message: 'User Login Failed!',
-            errors: errors
-          }));
-        }
-      );
+    try {
+      var service = new UserService();
+      let userData = await service.getUserDataAsync(userEmail, password);
+      dispatch(logIn.success(userData));
+    } catch(errors) {
+      dispatch(logIn.failure({
+        message: 'User Login Failed!',
+        errors: errors
+      }));
+    }
   };
 }
 
@@ -52,22 +47,17 @@ export function userLogOut() {
 }
 
 export function refreshUserData(userEmail, password) {
-  return dispatch => {
+  return async dispatch => {
     dispatch(userDataRefresh.request());
-    var service = new UserService();
-    return service.getUserDataAsync(userEmail, password)
-      .then(
-        (userData) => {
-          dispatch(userDataRefresh.success(userData));
-        }
-      )
-      .catch(
-        (errors) => {
-          dispatch(userDataRefresh.failure({
-            message: 'Failed to refresh user data!',
-            errors: errors
-          }));
-        }
-      );
+    try {
+      var service = new UserService();
+      let userData = await service.getUserDataAsync(userEmail, password);
+      dispatch(userDataRefresh.success(userData));
+    } catch(errors) {
+      dispatch(userDataRefresh.failure({
+        message: 'Failed to refresh user data!',
+        errors: errors
+      }));
+    }
   };
 }
