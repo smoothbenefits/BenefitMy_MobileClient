@@ -56,12 +56,14 @@ class TimePunchCardScreenComponent extends React.Component {
       let projectOptions = this.props.projectList.map(
                               (project, i) => {
                                 return {
-                                  key: i+1,
+                                  key: i+2,
                                   label: project.name,
                                   value: project.project_id,
                                   project: project
                                 };
                             });
+      // Add a N/A option
+      projectOptions.unshift({ key: 1, label: '- Not Applicable -', value: null, project: null });
       // Add a title for the dropdown
       projectOptions.unshift({ key: 0, section: true, label: 'Projects' });
       return (
@@ -78,7 +80,7 @@ class TimePunchCardScreenComponent extends React.Component {
               numberOfLines={1}
               style={styles.dropdownSelectionText}
             >
-              {this.state.projectSelection ? this.state.projectSelection.name : 'Select a Project..'}
+              {this.state.projectSelection ? this.state.projectSelection.name : '- Not Applicable -'}
             </Text>
           </TouchableOpacity>
         </ModalPicker>
