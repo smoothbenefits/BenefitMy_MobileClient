@@ -38,6 +38,13 @@ class TabNavigationLayout extends React.Component {
         >
           <StackNavigation initialRoute={Router.getRoute('timePunchCard')} />
         </TabNavigationItem>
+
+        <TabNavigationItem
+          id="help"
+          renderIcon={isSelected => this._renderIcon('question-circle-o', isSelected)}
+        >
+          <StackNavigation initialRoute={Router.getRoute('help')} />
+        </TabNavigationItem>
       </TabNavigation>
     );
   }
