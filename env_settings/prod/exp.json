@@ -50,7 +50,7 @@
 
   loading: {
     // The image to display in the center of the splash screen while loading the app.
-    iconUrl: "https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png",
+    iconUrl: "https://app.workbenefits.me/static/images/workbenefitsme-logo-white-background.png",
   },
 
   // Options to pack into the packager.

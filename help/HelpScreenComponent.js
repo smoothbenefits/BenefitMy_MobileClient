@@ -1,10 +1,12 @@
 import React, {PropTypes} from 'react';
 import {
+  Platform,
   StyleSheet,
   TouchableOpacity,
   TouchableHighlight,
   Text,
   View,
+  ScrollView,
   Modal
 } from 'react-native';
 import {
@@ -14,6 +16,32 @@ import {
 class HelpScreenComponent extends React.Component {
   constructor(props, context) {
     super(props, context);
+  }
+
+  _renderLocationServiceInstructionTexts() {
+    return Platform.OS === 'ios'
+      ? (
+          <ScrollView>
+            <Text style={styles.headerText}>How to turn on location/GPS service?</Text>
+            <Text style={styles.modalText}>{"1. Leave the app and go to your iPhone's Settings"}</Text>
+            <Text style={styles.modalText}>{"2. Tap Privacy > Location Services"}</Text>
+            <Text style={styles.modalText}>{"3. Ensure 'Location Services' is turned on"}</Text>
+            <Text style={styles.modalText}>{"4. Scroll down and tap 'workbenefits.me' APP"}</Text>
+            <Text style={styles.modalText}>{"5. Ensure 'Allow Location Access' is set to 'While Using the App'"}</Text>
+          </ScrollView>
+        )
+      : (
+          <ScrollView>
+            <Text style={styles.headerText}>How to turn on location/GPS service?</Text>
+            <Text style={styles.modalText}>{"1. Open your device's Settings app"}</Text>
+            <Text style={styles.modalText}>{"2. Under 'Personal', tap 'Location'"}</Text>
+            <Text style={styles.modalText}>{"3. Ensure the option is set to 'On'"}</Text>
+            <Text style={styles.modalText}>{"4. Tap on 'Mode', and ensure it is set to either 'High Accuracy' or 'Battery Saving' mode"}</Text>
+            <Text style={styles.modalText}>{"5. Go back to Settings app"}</Text>
+            <Text style={styles.modalText}>{"6. Under 'Apps' tap 'workbenefits.me' app"}</Text>
+            <Text style={styles.modalText}>{"7. Under 'Permissions', ensure 'Location' is on"}</Text>
+          </ScrollView>
+        );
   }
 
   _renderLocationServiceInstructionModal() {
@@ -27,10 +55,7 @@ class HelpScreenComponent extends React.Component {
         <View style={styles.modalContainer}>
           <View style={styles.topAlignContainer} />
           <View style={styles.centerContainer}>
-            <Text style={styles.headerText}>How to turn on location/GPS service?</Text>
-            <Text>1. Go to Settings</Text>
-            <Text>2. Tap on 'Privacy'</Text>
-            <Text>3. Tap on 'Location Service'</Text>
+            {this._renderLocationServiceInstructionTexts()}
           </View>
           <View style={styles.bottomAlignContainer}>
             <TouchableOpacity
@@ -152,11 +177,15 @@ const styles = StyleSheet.create({
   headerText: {
     alignSelf: 'flex-start',
     textAlign: 'left',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
     color: '#555555',
     textDecorationLine: 'underline',
     marginBottom: 10
+  },
+  modalText: {
+    fontSize: 16,
+    marginBottom: 4
   }
 });
 

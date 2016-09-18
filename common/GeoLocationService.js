@@ -14,7 +14,7 @@ class GeoLocationService {
             });
           },
           (error) => {
-            let err = new Error('The app requires location/GPS service to work properly. Please ensure it is turned on.');
+            let err = new Error('The app requires location/GPS service to work properly. Please ensure it is turned on. (Please refer to Help tab for instructions.)');
             err.doNotMaskMessage = true;
             reject(err);
           }
