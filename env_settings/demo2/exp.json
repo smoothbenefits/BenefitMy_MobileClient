@@ -51,6 +51,7 @@
   loading: {
     // The image to display in the center of the splash screen while loading the app.
     iconUrl: "https://app.workbenefits.me/static/images/workbenefitsme-logo-white-background.png",
+    hideExponentText: true
   },
 
   // Options to pack into the packager.
@@ -65,5 +66,6 @@
   android: {
     package: "workbenefitsme.mobile",
     versionCode: "4",
-  }
+  },
+  androidHideExponentNotificationInShellApp: true
 }
