@@ -13,7 +13,7 @@
 {
   // This is the name of your app in all senses of the word: it appears below
   // the icon on the home screen, in push notifications, etc.
-  name: "work-benefits-me-mobile-client",
+  name: "workbenefits.me",
 
   // The description is currently not used but may at some point be made
   // visible inside of the Exponent client to help users discover your app.
@@ -28,7 +28,7 @@
 
   // Your app version -- for your own use. This is available to your app at
   // runtime, so you can use it for reporting and such.
-  version: "6.0.0",
+  version: "1.0.0",
 
   // Allowed orientations: default is locked to portrait.
   orientation: "portrait",
@@ -61,11 +61,11 @@
     assetExts: ["ttf"]
   },
   ios: {
-    bundleIdentifier: "workbenefitsme.mobile",
+    bundleIdentifier: "workbenefits.me-mobile",
   },
   android: {
-    package: "workbenefitsme.mobile",
-    versionCode: "6",
+    package: "workbenefits.me_mobile",
+    versionCode: "1",
   },
   androidHideExponentNotificationInShellApp: true
 }
