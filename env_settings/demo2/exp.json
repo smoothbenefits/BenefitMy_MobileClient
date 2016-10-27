@@ -61,7 +61,7 @@
     assetExts: ["ttf"]
   },
   ios: {
-    bundleIdentifier: "workbenefits.me mobile",
+    bundleIdentifier: "workbenefits.me-mobile",
   },
   android: {
     package: "workbenefits.me_mobile",
