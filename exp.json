@@ -20,7 +20,7 @@
   description: "WorkBenefits.Me Mobile Client",
 
   // The url-name of the app: https://exp.host/@your-username/slug
-  slug: "work-benefits-me",
+  slug: "dev-work-benefits-me",
 
   // The target Exponent SDK version. This must line up with the react-native
   // version in package.json
@@ -42,7 +42,7 @@
   // Push notification configuration: currently Android only.
   notification: {
     // The image to use for the notification icon
-    iconUrl: "https://app.workbenefits.me/static/images/workbenefitsme-logo-white-background.png",
+    iconUrl: "https://s3.amazonaws.com/exp-us-standard/placeholder-push-icon.png",
 
     // The background color for the notification icon.
     color: "#000000"
