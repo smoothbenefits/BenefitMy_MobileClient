@@ -24,11 +24,11 @@
 
   // The target Exponent SDK version. This must line up with the react-native
   // version in package.json
-  sdkVersion: "9.0.0",
+  sdkVersion: "10.0.0",
 
   // Your app version -- for your own use. This is available to your app at
   // runtime, so you can use it for reporting and such.
-  version: "1.0.0",
+  version: "1.0.1",
 
   // Allowed orientations: default is locked to portrait.
   orientation: "portrait",
