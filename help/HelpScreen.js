@@ -25,8 +25,8 @@ class HelpScreen extends React.Component {
       // the ex-navigation code base to find these, and luckily
       // set them to null seems to do the trick of removing the
       // masking.
-      renderRight: null,
-      renderLeft: null
+      renderRight: () => null,
+      renderLeft: () => null
     },
   };
 

@@ -29,7 +29,8 @@ class GeoLocationService {
             let err = new Error('The app requires location/GPS service to work properly. Please ensure it is turned on. (Please refer to Help tab for instructions.)');
             err.doNotMaskMessage = true;
             reject(err);
-          }
+          },
+          {timeout: 2000}
         );
       }
     );
@@ -43,7 +44,22 @@ class GeoLocationService {
     // service, if it is not granted yet.
     // Note: This has nothing to do with the turning on/off location
     //       service or GPS for the device or the APP.
-    let {status} = await Permissions.askAsync(Permissions.LOCATION);
+
+    // Also, for whatever reason internal to the askAsync call, it
+    // halts indefinitely on ios, after the user select either allow
+    // or deny access.
+    // Hence, we have to do the below weird wrapping into a promise,
+    // to force the effect of a timeout on this.
+    let promise = new Promise(function(resolve, reject){
+      Permissions.askAsync(Permissions.LOCATION).then(
+        (result) => {
+          resolve(result.status);
+        }
+      )
+      setTimeout(function() { reject('Timed out') }, 1000)
+    });
+
+    let status = await promise;
 
     // It is super weird that the above Perimissions prompt does not work for
     // older version of Android, and always returns "denied"...

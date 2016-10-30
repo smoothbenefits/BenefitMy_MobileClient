@@ -16,8 +16,8 @@ class LoginScreen extends React.Component {
   static route = {
     navigationBar: {
       renderTitle: () => <BrandedNavigationTitle />,
-      renderRight: null,
-      renderLeft: null
+      renderRight: () => null,
+      renderLeft: () => null
     },
   }
 
