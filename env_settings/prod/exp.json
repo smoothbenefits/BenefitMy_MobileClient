@@ -28,7 +28,7 @@
 
   // Your app version -- for your own use. This is available to your app at
   // runtime, so you can use it for reporting and such.
-  version: "1.0.1",
+  version: "1.0.2",
 
   // Allowed orientations: default is locked to portrait.
   orientation: "portrait",
@@ -65,7 +65,7 @@
   },
   android: {
     package: "workbenefits.me_mobile",
-    versionCode: "1",
+    versionCode: "2",
   },
   androidHideExponentNotificationInShellApp: true
 }
