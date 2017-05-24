@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {
   FontAwesome,
-} from '@exponent/vector-icons';
+} from '@expo/vector-icons';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import Spinner from 'react-native-loading-spinner-overlay';
 

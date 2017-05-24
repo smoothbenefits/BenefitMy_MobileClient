@@ -13,7 +13,7 @@ import {
 import Dimensions from 'Dimensions';
 import {
   FontAwesome,
-} from '@exponent/vector-icons';
+} from '@expo/vector-icons';
 import {logOut} from '../user/userUtility';
 
 function renderBrandedNavigationTitle() {

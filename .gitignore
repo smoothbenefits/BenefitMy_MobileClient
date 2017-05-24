@@ -38,6 +38,7 @@ jspm_packages
 
 # Exponent generated files
 .exponent
+.expo/*
 
 # Apple file metadata
 .DS_Store
