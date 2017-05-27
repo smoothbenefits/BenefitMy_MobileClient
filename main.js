@@ -1,4 +1,4 @@
-import 'exponent';
+import 'expo';
 import {
   AppRegistry
 } from 'react-native';

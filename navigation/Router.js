@@ -4,7 +4,7 @@
 
 import {
   createRouter,
-} from '@exponent/ex-navigation';
+} from '@expo/ex-navigation';
 
 import LoginScreen from 'LoginScreen';
 import TimePunchCardScreen from 'TimePunchCardScreen';

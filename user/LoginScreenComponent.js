@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {
   FontAwesome,
-} from '@exponent/vector-icons';
+} from '@expo/vector-icons';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -118,23 +118,23 @@ LoginScreenComponent.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
     backgroundColor: '#E9E7E2'
   },
   centerContainer: {
-    flex: 11,
+    flexGrow: 11,
     justifyContent: 'center',
     alignItems: 'center'
   },
   topAlignContainer: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'flex-start',
     alignItems: 'center'
   },
   centerAlignContainer: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   },
   label: {
     width: 230,
-    flex: 1,
+    flexGrow: 1,
     alignSelf: 'center',
     textAlign: 'center',
     fontSize: 20,
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
   },
   labelIconContainer: {
     width: 230,
-    flex: 1,
+    flexGrow: 1,
     textAlign: 'center',
     alignSelf: 'center',
     color: '#ffffff',
@@ -183,6 +183,7 @@ const styles = StyleSheet.create({
     borderColor: '#328FE6',
     padding: 10,
     marginTop: 10,
+    height: 50,
     backgroundColor: '#32c5e6'
   }
 });

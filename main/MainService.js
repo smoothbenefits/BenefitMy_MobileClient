@@ -1,6 +1,6 @@
 import {
   FontAwesome,
-} from '@exponent/vector-icons';
+} from '@expo/vector-icons';
 import {cacheImages, cacheFonts} from './assetUtilities';
 
 class MainService {

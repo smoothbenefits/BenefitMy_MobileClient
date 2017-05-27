@@ -2,7 +2,7 @@
  * @providesModule GeoLocationService
  */
 import {Platform} from 'react-native';
-import {Permissions} from 'exponent';
+import {Permissions} from 'expo';
 
 class GeoLocationService {
 

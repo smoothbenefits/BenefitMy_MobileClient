@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import * as Exponent from 'exponent';
+import * as Expo from 'expo';
 import {
   StyleSheet,
   View,
@@ -8,14 +8,14 @@ import Router from 'Router';
 import {
   NavigationProvider,
   StackNavigation,
-} from '@exponent/ex-navigation';
+} from '@expo/ex-navigation';
 import LoginScreen from 'LoginScreen';
 
 class MainComponent extends React.Component {
 
   render() {
     if (!this.props.appIsLoaded) {
-      return <Exponent.Components.AppLoading />;
+      return <Expo.AppLoading />;
     }
 
     let view;
@@ -49,7 +49,7 @@ MainComponent.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: '#fff'
   },
 });
