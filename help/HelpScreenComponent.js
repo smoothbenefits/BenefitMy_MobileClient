@@ -53,7 +53,6 @@ class HelpScreenComponent extends React.Component {
           visible={this.props.locationServiceInstructionModalVisible}
       >
         <View style={styles.modalContainer}>
-          <View style={styles.topAlignContainer} />
           <View style={styles.centerContainer}>
             {this._renderLocationServiceInstructionTexts()}
           </View>
@@ -99,39 +98,34 @@ HelpScreenComponent.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     backgroundColor: '#E9E7E2'
   },
   modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
+    flexGrow: 1,
+    justifyContent: 'flex-start',
     alignItems: 'stretch',
     backgroundColor: '#AAAAAA'
   },
-  topAlignContainer: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center'
-  },
   bottomAlignContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
+    height: 50,
+    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20
+    marginBottom: 40
   },
   centerContainer: {
-    flex: 11,
+    flexGrow: 2,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     margin: 20,
+    marginTop: 40,
     padding: 10,
     backgroundColor: '#EEEEEE'
   },
   modalButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignSelf: 'center',
     borderWidth: 1,
     borderRadius: 5,
     borderColor: '#328FE6',
@@ -141,7 +135,7 @@ const styles = StyleSheet.create({
   },
   modalButtonText: {
     width: 230,
-    flex: 1,
+    flexGrow: 1,
     alignSelf: 'center',
     textAlign: 'center',
     fontSize: 20,
@@ -160,7 +154,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#66B2FF'
   },
   listViewButtonText: {
-    flex: 1,
+    flexGrow: 1,
     alignSelf: 'flex-start',
     textAlign: 'left',
     fontSize: 16,
@@ -168,7 +162,7 @@ const styles = StyleSheet.create({
     color: '#ffffff'
   },
   buttonIconContainer: {
-    flex: 1,
+    flexGrow: 1,
     textAlign: 'left',
     alignSelf: 'flex-start',
     color: '#ffffff',

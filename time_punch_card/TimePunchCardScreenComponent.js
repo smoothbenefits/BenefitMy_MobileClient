@@ -114,20 +114,20 @@ TimePunchCardScreenComponent.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'stretch',
     backgroundColor: '#E9E7E2'
   },
   centerContainer: {
-    flex: 11,
+    flexGrow: 11,
     justifyContent: 'center',
     alignItems: 'stretch'
   },
   centerAlignContainer: {
-      flex: 1,
+      flexGrow: 1,
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'stretch'
   },
   input: {
     width: 250,
@@ -149,11 +149,13 @@ const styles = StyleSheet.create({
     borderColor: '#052F3E',
     padding: 10,
     marginTop: 10,
-    backgroundColor: '#052F7E'
+    width: 250,
+    backgroundColor: '#052F7E',
+    alignSelf: 'center'
   },
   label: {
     width: 230,
-    flex: 1,
+    flexGrow: 1,
     alignSelf: 'center',
     textAlign: 'center',
     fontSize: 20,

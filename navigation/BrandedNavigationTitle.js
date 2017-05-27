@@ -51,7 +51,7 @@ function renderBrandedNavigationTitle() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     padding: 2
   },
   label: {
-    flex: 1,
+    flexGrow: 1,
     alignSelf: 'center',
     textAlign: 'center',
     fontSize: 10,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     color: '#ffffff'
   },
   labelIconContainer: {
-    flex: 1,
+    flexGrow: 1,
     textAlign: 'center',
     alignSelf: 'center',
     color: '#ffffff'
